@@ -1,0 +1,189 @@
+[gd_scene load_steps=6 format=3 uid="uid://cckmqmn6mbhtl"]
+
+[ext_resource type="PackedScene" uid="uid://c1wbi2kt7221i" path="res://src/game_objects/player_vehicle_2d/player_vehicle_2d.tscn" id="1_h7xki"]
+[ext_resource type="PackedScene" uid="uid://02n7xapox2w5" path="res://src/components/input_controller/input_controller.tscn" id="1_hs2m2"]
+[ext_resource type="PackedScene" uid="uid://484piapv22pv" path="res://src/game_objects/game_camera_2d/game_camera_2d.tscn" id="3_gx72n"]
+[ext_resource type="PackedScene" uid="uid://b5lsuh120g6h7" path="res://src/game_objects/enemy_raider/enemy_raider.tscn" id="4_pq22j"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gx72n"]
+size = Vector2(137, 1538)
+
+[node name="Level" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("1_h7xki")]
+position = Vector2(214, 312)
+
+[node name="InputController" parent="." node_paths=PackedStringArray("_player") instance=ExtResource("1_hs2m2")]
+_player = NodePath("../Player")
+
+[node name="GameCamera2D" parent="." instance=ExtResource("3_gx72n")]
+position = Vector2(575, 327)
+_trauma_maximum = 40.02
+_trauma_fade = 13.97
+
+[node name="LimitEast" type="Area2D" parent="."]
+position = Vector2(1183, 361)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LimitEast"]
+shape = SubResource("RectangleShape2D_gx72n")
+
+[node name="LimitWest" type="Area2D" parent="."]
+position = Vector2(2, 339)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LimitWest"]
+shape = SubResource("RectangleShape2D_gx72n")
+
+[node name="EnemyRaider" parent="." instance=ExtResource("4_pq22j")]
+position = Vector2(776, 197)
+
+[node name="EnemyRaider2" parent="." instance=ExtResource("4_pq22j")]
+position = Vector2(716, 370)
+
+[node name="EnemyRaider3" parent="." instance=ExtResource("4_pq22j")]
+position = Vector2(889, 487)
+
+[node name="EnemyRaider4" parent="." instance=ExtResource("4_pq22j")]
+position = Vector2(719, 240)
+
+[node name="EnemyRaider5" parent="." instance=ExtResource("4_pq22j")]
+position = Vector2(659, 413)
+
+[node name="EnemyRaider6" parent="." instance=ExtResource("4_pq22j")]
+position = Vector2(832, 530)
+
+[node name="EnemyRaider7" parent="." instance=ExtResource("4_pq22j")]
+position = Vector2(793, 263)
+
+[node name="EnemyRaider8" parent="." instance=ExtResource("4_pq22j")]
+position = Vector2(733, 436)
+
+[node name="EnemyRaider9" parent="." instance=ExtResource("4_pq22j")]
+position = Vector2(906, 553)
+
+[node name="EnemyRaider10" parent="." instance=ExtResource("4_pq22j")]
+position = Vector2(801, 323)
+
+[node name="EnemyRaider11" parent="." instance=ExtResource("4_pq22j")]
+position = Vector2(741, 496)
+
+[node name="EnemyRaider12" parent="." instance=ExtResource("4_pq22j")]
+position = Vector2(914, 613)
+
+[node name="EnemyRaider13" parent="." instance=ExtResource("4_pq22j")]
+position = Vector2(686, 198)
+
+[node name="EnemyRaider14" parent="." instance=ExtResource("4_pq22j")]
+position = Vector2(626, 371)
+
+[node name="EnemyRaider15" parent="." instance=ExtResource("4_pq22j")]
+position = Vector2(799, 488)
+
+[node name="EnemyRaider16" parent="." instance=ExtResource("4_pq22j")]
+position = Vector2(729, 151)
+
+[node name="EnemyRaider17" parent="." instance=ExtResource("4_pq22j")]
+position = Vector2(669, 324)
+
+[node name="EnemyRaider19" parent="." instance=ExtResource("4_pq22j")]
+position = Vector2(834, 178)
+
+[node name="EnemyRaider20" parent="." instance=ExtResource("4_pq22j")]
+position = Vector2(774, 351)
+
+[node name="EnemyRaider21" parent="." instance=ExtResource("4_pq22j")]
+position = Vector2(777, 221)
+
+[node name="EnemyRaider22" parent="." instance=ExtResource("4_pq22j")]
+position = Vector2(717, 394)
+
+[node name="EnemyRaider23" parent="." instance=ExtResource("4_pq22j")]
+position = Vector2(851, 244)
+
+[node name="EnemyRaider24" parent="." instance=ExtResource("4_pq22j")]
+position = Vector2(791, 417)
+
+[node name="EnemyRaider25" parent="." instance=ExtResource("4_pq22j")]
+position = Vector2(859, 304)
+
+[node name="EnemyRaider26" parent="." instance=ExtResource("4_pq22j")]
+position = Vector2(744, 179)
+
+[node name="EnemyRaider27" parent="." instance=ExtResource("4_pq22j")]
+position = Vector2(684, 352)
+
+[node name="EnemyRaider28" parent="." instance=ExtResource("4_pq22j")]
+position = Vector2(787, 132)
+
+[node name="EnemyRaider29" parent="." instance=ExtResource("4_pq22j")]
+position = Vector2(727, 305)
+
+[node name="EnemyRaider30" parent="." instance=ExtResource("4_pq22j")]
+position = Vector2(629, 155)
+
+[node name="EnemyRaider31" parent="." instance=ExtResource("4_pq22j")]
+position = Vector2(569, 328)
+
+[node name="EnemyRaider32" parent="." instance=ExtResource("4_pq22j")]
+position = Vector2(572, 198)
+
+[node name="EnemyRaider33" parent="." instance=ExtResource("4_pq22j")]
+position = Vector2(512, 371)
+
+[node name="EnemyRaider34" parent="." instance=ExtResource("4_pq22j")]
+position = Vector2(646, 221)
+
+[node name="EnemyRaider35" parent="." instance=ExtResource("4_pq22j")]
+position = Vector2(586, 394)
+
+[node name="EnemyRaider36" parent="." instance=ExtResource("4_pq22j")]
+position = Vector2(654, 281)
+
+[node name="EnemyRaider37" parent="." instance=ExtResource("4_pq22j")]
+position = Vector2(539, 156)
+
+[node name="EnemyRaider38" parent="." instance=ExtResource("4_pq22j")]
+position = Vector2(479, 329)
+
+[node name="EnemyRaider39" parent="." instance=ExtResource("4_pq22j")]
+position = Vector2(582, 109)
+
+[node name="EnemyRaider40" parent="." instance=ExtResource("4_pq22j")]
+position = Vector2(522, 282)
+
+[node name="EnemyRaider41" parent="." instance=ExtResource("4_pq22j")]
+position = Vector2(668, 309)
+
+[node name="EnemyRaider42" parent="." instance=ExtResource("4_pq22j")]
+position = Vector2(608, 482)
+
+[node name="EnemyRaider43" parent="." instance=ExtResource("4_pq22j")]
+position = Vector2(611, 352)
+
+[node name="EnemyRaider44" parent="." instance=ExtResource("4_pq22j")]
+position = Vector2(551, 525)
+
+[node name="EnemyRaider45" parent="." instance=ExtResource("4_pq22j")]
+position = Vector2(685, 375)
+
+[node name="EnemyRaider46" parent="." instance=ExtResource("4_pq22j")]
+position = Vector2(625, 548)
+
+[node name="EnemyRaider47" parent="." instance=ExtResource("4_pq22j")]
+position = Vector2(693, 435)
+
+[node name="EnemyRaider48" parent="." instance=ExtResource("4_pq22j")]
+position = Vector2(578, 310)
+
+[node name="EnemyRaider49" parent="." instance=ExtResource("4_pq22j")]
+position = Vector2(518, 483)
+
+[node name="EnemyRaider50" parent="." instance=ExtResource("4_pq22j")]
+position = Vector2(621, 263)
+
+[node name="EnemyRaider51" parent="." instance=ExtResource("4_pq22j")]
+position = Vector2(561, 436)
+
+[node name="EnemyRaider18" parent="." instance=ExtResource("4_pq22j")]
+position = Vector2(842, 441)

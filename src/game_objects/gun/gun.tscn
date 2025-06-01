@@ -1,0 +1,117 @@
+[gd_scene load_steps=17 format=3 uid="uid://3prgu1sbvisa"]
+
+[ext_resource type="Script" uid="uid://dqfn5kfi3aepx" path="res://src/game_objects/gun/gun.gd" id="1_tvs4u"]
+[ext_resource type="PackedScene" uid="uid://la7ggqwg2de6" path="res://src/game_objects/bullet_2d/bullet_2d.tscn" id="2_djin3"]
+[ext_resource type="PackedScene" uid="uid://d1gqsdw8lt5b8" path="res://src/components/square_2d/square_2d.tscn" id="3_0j1yv"]
+[ext_resource type="PackedScene" uid="uid://bawg0206uathn" path="res://src/components/audio_stream_player_2d_pool/audio_stream_player_2d_pool.tscn" id="4_qeilf"]
+[ext_resource type="AudioStream" uid="uid://curx1uwvo466q" path="res://assets/sfx/gunshots/gma_gun_rifle_shot_01_517.wav" id="5_h3vq3"]
+[ext_resource type="AudioStream" uid="uid://d4dy0t6s8bemu" path="res://assets/sfx/gunshots/gma_gun_rifle_shot_02_518.wav" id="6_pw5n4"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_lon47"]
+random_pitch = 1.11
+random_volume_offset_db = 0.56
+streams_count = 2
+stream_0/stream = ExtResource("5_h3vq3")
+stream_1/stream = ExtResource("6_pw5n4")
+
+[sub_resource type="Animation" id="Animation_yn0u7"]
+resource_name = "shoot"
+length = 0.133337
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(0.392292, 1),
+"update": 0,
+"values": [Vector2(46.98, 15.66), Vector2(24, 8)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AudioStreamPlayer2DPool")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"play"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_j4sp8"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(24, 8)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lon47"]
+_data = {
+&"RESET": SubResource("Animation_j4sp8"),
+&"shoot": SubResource("Animation_yn0u7")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_yn0u7"]
+animation = &"RESET"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_j4sp8"]
+animation = &"shoot"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_lon47"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_txxho"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_y34xu"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_8a2u4"]
+allow_transition_to_self = true
+states/RESET/node = SubResource("AnimationNodeAnimation_yn0u7")
+states/RESET/position = Vector2(410, 100)
+states/shoot/node = SubResource("AnimationNodeAnimation_j4sp8")
+states/shoot/position = Vector2(593, 100)
+transitions = ["Start", "RESET", SubResource("AnimationNodeStateMachineTransition_lon47"), "RESET", "shoot", SubResource("AnimationNodeStateMachineTransition_txxho"), "shoot", "RESET", SubResource("AnimationNodeStateMachineTransition_y34xu")]
+
+[node name="PrimaryGun" type="Node2D" node_paths=PackedStringArray("_bullet_spawner")]
+script = ExtResource("1_tvs4u")
+_bullet_scene = ExtResource("2_djin3")
+_bullet_spawner = NodePath("")
+_kind = 1
+_trauma_intensity = 2.11
+
+[node name="CooldownTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="Sprite" parent="." instance=ExtResource("3_0j1yv")]
+modulate = Color(0.947448, 0.496444, 0.499453, 1)
+scale = Vector2(24, 8)
+
+[node name="AudioStreamPlayer2DPool" parent="." instance=ExtResource("4_qeilf")]
+audio_stream = SubResource("AudioStreamRandomizer_lon47")
+pool_size = 8
+volume_db = -12.11
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_lon47")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_8a2u4")
+anim_player = NodePath("../AnimationPlayer")

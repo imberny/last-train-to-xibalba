@@ -1,0 +1,118 @@
+[gd_scene load_steps=17 format=3 uid="uid://c1wbi2kt7221i"]
+
+[ext_resource type="Script" uid="uid://ffgbnmgbp6br" path="res://src/game_objects/player_vehicle_2d/player_vehicle_2d.gd" id="1_o8gf6"]
+[ext_resource type="PackedScene" uid="uid://dt0q1pb42hs6f" path="res://src/components/velocity/velocity.tscn" id="2_cs8f6"]
+[ext_resource type="PackedScene" uid="uid://d1gqsdw8lt5b8" path="res://src/components/square_2d/square_2d.tscn" id="3_b7s65"]
+[ext_resource type="PackedScene" uid="uid://cb7koi37ki7ll" path="res://src/components/trail_2d/trail_2d.tscn" id="3_dwlbi"]
+[ext_resource type="PackedScene" uid="uid://3prgu1sbvisa" path="res://src/game_objects/gun/gun.tscn" id="3_q3ate"]
+
+[sub_resource type="Animation" id="Animation_dwlbi"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BodySprite:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(64, 24)]
+}
+
+[sub_resource type="Animation" id="Animation_q3ate"]
+resource_name = "boost"
+length = 0.400003
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BodySprite:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.166667, 0.4),
+"transitions": PackedFloat32Array(2, 0.183011, 1.62451),
+"update": 0,
+"values": [Vector2(84.64, 8.48), Vector2(21.6, 41.825), Vector2(64, 24)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rwhi4"]
+_data = {
+&"RESET": SubResource("Animation_dwlbi"),
+&"boost": SubResource("Animation_q3ate")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_q3ate"]
+animation = &"RESET"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_dwlbi"]
+animation = &"boost"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_rwhi4"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_3h6ip"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_yn0u7"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_q3ate"]
+states/RESET/node = SubResource("AnimationNodeAnimation_q3ate")
+states/RESET/position = Vector2(381, 94)
+states/boost/node = SubResource("AnimationNodeAnimation_dwlbi")
+states/boost/position = Vector2(543, 92)
+transitions = ["Start", "RESET", SubResource("AnimationNodeStateMachineTransition_rwhi4"), "RESET", "boost", SubResource("AnimationNodeStateMachineTransition_3h6ip"), "boost", "RESET", SubResource("AnimationNodeStateMachineTransition_yn0u7")]
+
+[sub_resource type="Curve" id="Curve_dwlbi"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_dwlbi"]
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1)
+
+[node name="PlayerVehicle2D" type="Node2D"]
+script = ExtResource("1_o8gf6")
+_boost_modifier = 17.48
+metadata/_edit_group_ = true
+
+[node name="Velocity" parent="." instance=ExtResource("2_cs8f6")]
+max_speed = 280
+acceleration = 9.545
+
+[node name="BoostTimer" type="Timer" parent="."]
+wait_time = 0.6
+one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_rwhi4")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_q3ate")
+anim_player = NodePath("../AnimationPlayer")
+
+[node name="Trail2d" parent="." instance=ExtResource("3_dwlbi")]
+show_behind_parent = true
+z_index = -1
+width = 24.61
+width_curve = SubResource("Curve_dwlbi")
+gradient = SubResource("Gradient_dwlbi")
+
+[node name="BodySprite" parent="." instance=ExtResource("3_b7s65")]
+modulate = Color(0.654918, 0.744686, 0.910997, 1)
+scale = Vector2(64, 24)
+
+[node name="PrimaryGun" parent="." node_paths=PackedStringArray("_bullet_spawner") instance=ExtResource("3_q3ate")]
+position = Vector2(30, 12)
+_bullet_spawner = NodePath("../BulletSpawner")
+
+[node name="Gun2" parent="." instance=ExtResource("3_b7s65")]
+modulate = Color(0.975482, 0.690805, 0.274644, 1)
+position = Vector2(30, -12)
+scale = Vector2(24, 8)
+
+[node name="BulletSpawner" type="Marker2D" parent="."]
+position = Vector2(32, 0)

@@ -1,0 +1,120 @@
+[gd_scene load_steps=14 format=3 uid="uid://d0lng44oap53h"]
+
+[ext_resource type="Script" uid="uid://h2xi2fp3mhiu" path="res://addons/antipixel_shaker/sample/scripts/script_shaker_example.gd" id="1_d06vt"]
+[ext_resource type="Script" uid="uid://dr3ml35wstppc" path="res://addons/antipixel_shaker/scripts/script_shaker.gd" id="2_72f4l"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ap06j"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_n80tn"]
+sky_material = SubResource("ProceduralSkyMaterial_ap06j")
+
+[sub_resource type="Environment" id="Environment_h2e6w"]
+background_mode = 2
+sky = SubResource("Sky_n80tn")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_n80tn"]
+size = Vector2(100, 100)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h2e6w"]
+albedo_color = Color(1, 0.25098, 0.25098, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_yvoqm"]
+
+[sub_resource type="Curve" id="Curve_d06vt"]
+_data = [Vector2(0, 0.502779), 0.0, 0.0, 0, 0, Vector2(0.196766, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p2o6j"]
+albedo_color = Color(0.25098, 1, 0.25098, 1)
+
+[sub_resource type="Curve" id="Curve_72f4l"]
+_data = [Vector2(0, 0.502779), 0.0, 0.0, 0, 0, Vector2(0.196766, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n80tn"]
+albedo_color = Color(0.25098, 0.25098, 1, 1)
+
+[sub_resource type="Curve" id="Curve_rs5vc"]
+_data = [Vector2(0, 0.502779), 0.0, 0.0, 0, 0, Vector2(0.196766, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[node name="ShakerExample" type="Node" node_paths=PackedStringArray("shakers")]
+script = ExtResource("1_d06vt")
+shakers = [NodePath("CubePosition/Shaker"), NodePath("CubeRotation/Shaker"), NodePath("CubeScale/Shaker")]
+
+[node name="Environment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_h2e6w")
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Camera" type="Camera3D" parent="."]
+transform = Transform3D(0.707107, -0.353553, 0.612372, 0, 0.866025, 0.5, -0.707107, -0.353553, 0.612372, 10, 8.2, 10)
+projection = 1
+size = 5.0
+
+[node name="Plane" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+mesh = SubResource("PlaneMesh_n80tn")
+
+[node name="CubePosition" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 2)
+material_override = SubResource("StandardMaterial3D_h2e6w")
+cast_shadow = 0
+mesh = SubResource("BoxMesh_yvoqm")
+
+[node name="Shaker" type="Node" parent="CubePosition" node_paths=PackedStringArray("node")]
+script = ExtResource("2_72f4l")
+node = NodePath("..")
+transform = 1
+curve = SubResource("Curve_d06vt")
+min_duration = 0.2
+max_duration = 0.2
+min_magnitude = 0.3
+max_magnitude = 0.5
+min_frequency = 6.0
+max_frequency = 7.0
+constraint_y = true
+metadata/_custom_type_script = "uid://dr3ml35wstppc"
+
+[node name="CubeRotation" type="MeshInstance3D" parent="."]
+material_override = SubResource("StandardMaterial3D_p2o6j")
+cast_shadow = 0
+mesh = SubResource("BoxMesh_yvoqm")
+
+[node name="Shaker" type="Node" parent="CubeRotation" node_paths=PackedStringArray("node")]
+script = ExtResource("2_72f4l")
+node = NodePath("..")
+transform = 2
+curve = SubResource("Curve_72f4l")
+min_duration = 0.2
+max_duration = 0.2
+min_magnitude = 45.0
+max_magnitude = 90.0
+min_frequency = 500.0
+max_frequency = 600.0
+metadata/_custom_type_script = "uid://dr3ml35wstppc"
+
+[node name="CubeScale" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -2)
+material_override = SubResource("StandardMaterial3D_n80tn")
+cast_shadow = 0
+mesh = SubResource("BoxMesh_yvoqm")
+
+[node name="Shaker" type="Node" parent="CubeScale" node_paths=PackedStringArray("node")]
+script = ExtResource("2_72f4l")
+node = NodePath("..")
+transform = 3
+curve = SubResource("Curve_rs5vc")
+min_duration = 0.2
+max_duration = 0.2
+min_magnitude = 0.7
+max_magnitude = 0.9
+min_frequency = 7.0
+max_frequency = 8.0
+metadata/_custom_type_script = "uid://dr3ml35wstppc"
