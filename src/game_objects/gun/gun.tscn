@@ -1,7 +1,7 @@
 [gd_scene load_steps=17 format=3 uid="uid://3prgu1sbvisa"]
 
 [ext_resource type="Script" uid="uid://dqfn5kfi3aepx" path="res://src/game_objects/gun/gun.gd" id="1_tvs4u"]
-[ext_resource type="PackedScene" uid="uid://la7ggqwg2de6" path="res://src/game_objects/bullet_2d/bullet_2d.tscn" id="2_djin3"]
+[ext_resource type="PackedScene" uid="uid://la7ggqwg2de6" path="res://src/game_objects/bullets_2d/player_bullet_2d.tscn" id="2_djin3"]
 [ext_resource type="PackedScene" uid="uid://d1gqsdw8lt5b8" path="res://src/components/square_2d/square_2d.tscn" id="3_0j1yv"]
 [ext_resource type="PackedScene" uid="uid://bawg0206uathn" path="res://src/components/audio_stream_player_2d_pool/audio_stream_player_2d_pool.tscn" id="4_qeilf"]
 [ext_resource type="AudioStream" uid="uid://curx1uwvo466q" path="res://assets/sfx/gunshots/gma_gun_rifle_shot_01_517.wav" id="5_h3vq3"]
@@ -13,6 +13,21 @@ random_volume_offset_db = 0.56
 streams_count = 2
 stream_0/stream = ExtResource("5_h3vq3")
 stream_1/stream = ExtResource("6_pw5n4")
+
+[sub_resource type="Animation" id="Animation_j4sp8"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(24, 8)]
+}
 
 [sub_resource type="Animation" id="Animation_yn0u7"]
 resource_name = "shoot"
@@ -44,21 +59,6 @@ tracks/1/keys = {
 }]
 }
 
-[sub_resource type="Animation" id="Animation_j4sp8"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(24, 8)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_lon47"]
 _data = {
 &"RESET": SubResource("Animation_j4sp8"),
@@ -88,10 +88,9 @@ states/shoot/node = SubResource("AnimationNodeAnimation_j4sp8")
 states/shoot/position = Vector2(593, 100)
 transitions = ["Start", "RESET", SubResource("AnimationNodeStateMachineTransition_lon47"), "RESET", "shoot", SubResource("AnimationNodeStateMachineTransition_txxho"), "shoot", "RESET", SubResource("AnimationNodeStateMachineTransition_y34xu")]
 
-[node name="PrimaryGun" type="Node2D" node_paths=PackedStringArray("_bullet_spawner")]
+[node name="PrimaryGun" type="Node2D"]
 script = ExtResource("1_tvs4u")
 _bullet_scene = ExtResource("2_djin3")
-_bullet_spawner = NodePath("")
 _kind = 1
 _trauma_intensity = 2.11
 
@@ -99,13 +98,12 @@ _trauma_intensity = 2.11
 one_shot = true
 
 [node name="Sprite" parent="." instance=ExtResource("3_0j1yv")]
-modulate = Color(0.947448, 0.496444, 0.499453, 1)
 scale = Vector2(24, 8)
 
 [node name="AudioStreamPlayer2DPool" parent="." instance=ExtResource("4_qeilf")]
 audio_stream = SubResource("AudioStreamRandomizer_lon47")
 pool_size = 8
-volume_db = -12.11
+volume_db = -15.6
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

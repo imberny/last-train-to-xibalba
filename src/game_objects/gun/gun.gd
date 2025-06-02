@@ -30,6 +30,7 @@ func pull_trigger() -> void:
 		_start_charge()
 	elif _cooldown_timer.is_stopped():
 		_shoot()
+		_cooldown_timer.start()
 	else:
 		_has_shot = false
 
@@ -63,7 +64,7 @@ func _shoot_auto() -> void:
 func _shoot() -> void:
 	_has_shot = true
 	var bullet: Node2D = _bullet_scene.instantiate()
-	get_tree().root.add_child(bullet)
+	GameService.level.add_child(bullet)
 	bullet.global_transform = _bullet_spawner.global_transform
 	bullet.rotate(deg_to_rad(randf_range(-_spread_degrees, _spread_degrees)))
 	_playback.travel("shoot")

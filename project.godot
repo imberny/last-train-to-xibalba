@@ -11,12 +11,14 @@ config_version=5
 [application]
 
 config/name="Last Train to Xibalba"
+run/main_scene="uid://6l2kblvk0bri"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [autoload]
 
 EventBus="*res://src/autoloads/event_bus/event_bus.tscn"
+GameService="*res://src/autoloads/game/game.tscn"
 
 [file_customization]
 
@@ -106,8 +108,10 @@ flip_around={
 2d_physics/layer_1="statics"
 2d_physics/layer_2="rigids"
 2d_physics/layer_3="actors"
-2d_physics/layer_5="hitbox"
-2d_physics/layer_6="hurtbox"
+2d_physics/layer_5="player hitbox"
+2d_physics/layer_6="player hurtbox"
+2d_physics/layer_7="enemy hitbox"
+2d_physics/layer_8="enemy hurtbox"
 
 [rendering]
 

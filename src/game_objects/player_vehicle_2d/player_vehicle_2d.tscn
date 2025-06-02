@@ -1,10 +1,12 @@
-[gd_scene load_steps=17 format=3 uid="uid://c1wbi2kt7221i"]
+[gd_scene load_steps=20 format=3 uid="uid://c1wbi2kt7221i"]
 
 [ext_resource type="Script" uid="uid://ffgbnmgbp6br" path="res://src/game_objects/player_vehicle_2d/player_vehicle_2d.gd" id="1_o8gf6"]
 [ext_resource type="PackedScene" uid="uid://dt0q1pb42hs6f" path="res://src/components/velocity/velocity.tscn" id="2_cs8f6"]
+[ext_resource type="PackedScene" uid="uid://dejh0cxjkbis1" path="res://src/components/health/health.tscn" id="3_3h6ip"]
 [ext_resource type="PackedScene" uid="uid://d1gqsdw8lt5b8" path="res://src/components/square_2d/square_2d.tscn" id="3_b7s65"]
 [ext_resource type="PackedScene" uid="uid://cb7koi37ki7ll" path="res://src/components/trail_2d/trail_2d.tscn" id="3_dwlbi"]
 [ext_resource type="PackedScene" uid="uid://3prgu1sbvisa" path="res://src/game_objects/gun/gun.tscn" id="3_q3ate"]
+[ext_resource type="PackedScene" uid="uid://c2nw265h7x8ew" path="res://src/components/hitbox/hitbox.tscn" id="7_yn0u7"]
 
 [sub_resource type="Animation" id="Animation_dwlbi"]
 length = 0.001
@@ -72,6 +74,9 @@ point_count = 2
 [sub_resource type="Gradient" id="Gradient_dwlbi"]
 colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3h6ip"]
+size = Vector2(57, 20)
+
 [node name="PlayerVehicle2D" type="Node2D"]
 script = ExtResource("1_o8gf6")
 _boost_modifier = 17.48
@@ -80,6 +85,9 @@ metadata/_edit_group_ = true
 [node name="Velocity" parent="." instance=ExtResource("2_cs8f6")]
 max_speed = 280
 acceleration = 9.545
+
+[node name="Health" parent="." node_paths=PackedStringArray("hitbox") instance=ExtResource("3_3h6ip")]
+hitbox = NodePath("../Hitbox")
 
 [node name="BoostTimer" type="Timer" parent="."]
 wait_time = 0.6
@@ -106,6 +114,7 @@ modulate = Color(0.654918, 0.744686, 0.910997, 1)
 scale = Vector2(64, 24)
 
 [node name="PrimaryGun" parent="." node_paths=PackedStringArray("_bullet_spawner") instance=ExtResource("3_q3ate")]
+modulate = Color(0.806572, 0.265107, 0.295352, 1)
 position = Vector2(30, 12)
 _bullet_spawner = NodePath("../BulletSpawner")
 
@@ -116,3 +125,9 @@ scale = Vector2(24, 8)
 
 [node name="BulletSpawner" type="Marker2D" parent="."]
 position = Vector2(32, 0)
+
+[node name="Hitbox" parent="." instance=ExtResource("7_yn0u7")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(-2.5, 0)
+shape = SubResource("RectangleShape2D_3h6ip")

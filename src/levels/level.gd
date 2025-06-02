@@ -1,0 +1,27 @@
+class_name Level extends Node
+
+signal back_to_main_menu
+
+@onready var _wave_manager: WaveManager = $WaveManager
+
+
+func _ready() -> void:
+	GameService.level = self
+	_wave_manager.finished.connect(_on_wave_manager_finished)
+
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("menu"):
+		quit_to_main_menu()
+
+
+func exit() -> void:
+	queue_free()
+
+
+func quit_to_main_menu() -> void:
+	back_to_main_menu.emit()
+
+
+func _on_wave_manager_finished() -> void:
+	quit_to_main_menu()

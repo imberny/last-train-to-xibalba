@@ -1,0 +1,16 @@
+[gd_scene load_steps=5 format=3 uid="uid://6l2kblvk0bri"]
+
+[ext_resource type="Script" uid="uid://dnx45qu5pkwhs" path="res://src/main.gd" id="1_eewff"]
+[ext_resource type="PackedScene" uid="uid://drw43yoago2g" path="res://src/menus/splash_screen/splash_screen.tscn" id="2_gh0ne"]
+[ext_resource type="PackedScene" uid="uid://bkipex3r08jho" path="res://src/menus/title_screen/title_screen.tscn" id="3_3cfgd"]
+[ext_resource type="Script" uid="uid://coaqxg28c7oym" path="res://src/level_container.gd" id="3_5q4o7"]
+
+[node name="Main" type="Node"]
+script = ExtResource("1_eewff")
+_splash_scene = ExtResource("2_gh0ne")
+_title_scene = ExtResource("3_3cfgd")
+
+[node name="LevelContainer" type="Node" parent="."]
+script = ExtResource("3_5q4o7")
+
+[node name="LogManager" type="Node" parent="."]

@@ -1,0 +1,53 @@
+[gd_scene load_steps=3 format=3 uid="uid://bkipex3r08jho"]
+
+[ext_resource type="Script" uid="uid://bvjjyjdpfx15x" path="res://src/menus/title_screen/title_screen.gd" id="1_56lcp"]
+[ext_resource type="PackedScene" uid="uid://cckmqmn6mbhtl" path="res://src/levels/debug_level.tscn" id="2_i6mh8"]
+
+[node name="TitleScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_56lcp")
+_debug_scene = ExtResource("2_i6mh8")
+
+[node name="CenterContainerTitle" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -310.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="CenterContainerTitle"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Last Train to Xibalba"
+
+[node name="CenterContainerButtons" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 94.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainerButtons"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="DebugSceneButton" type="Button" parent="CenterContainerButtons/VBoxContainer"]
+layout_mode = 2
+text = "Play debug level"
+
+[node name="ExitButton" type="Button" parent="CenterContainerButtons/VBoxContainer"]
+layout_mode = 2
+text = "Exit"
+
+[connection signal="pressed" from="CenterContainerButtons/VBoxContainer/DebugSceneButton" to="." method="_on_debug_scene_button_pressed"]
+[connection signal="pressed" from="CenterContainerButtons/VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]
