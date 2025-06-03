@@ -1,21 +1,23 @@
 extends Node
 
-@export var _player: PlayerVehicle2D
-
 
 func _physics_process(delta: float) -> void:
+	var player := GameService.get_player()
+	if not player:
+		return
+
 	var motion := _get_motion_adjusted()
 	if Input.is_action_just_pressed("boost"):
-		_player.boost(motion.normalized(), delta)
+		player.boost(motion.normalized(), delta)
 	else:
-		_player.move(motion, delta)
+		player.move(motion, delta)
 	if Input.is_action_just_pressed("shoot_primary"):
-		_player.primary_pull_trigger()
+		player.primary_pull_trigger()
 	elif Input.is_action_just_released("shoot_primary"):
-		_player.primary_release_trigger()
+		player.primary_release_trigger()
 
 	if Input.is_action_just_pressed("flip_around"):
-		_player.flip_around()
+		player.flip_around()
 
 
 func _get_motion_adjusted() -> Vector2:

@@ -1,0 +1,191 @@
+[gd_scene load_steps=14 format=3 uid="uid://bxg7f5l5rkhp0"]
+
+[ext_resource type="PackedScene" uid="uid://d1gqsdw8lt5b8" path="res://src/components/square_2d/square_2d.tscn" id="1_fafj6"]
+[ext_resource type="Script" uid="uid://c37vr3f3tbm85" path="res://src/effects/play_and_free.gd" id="1_flpl1"]
+[ext_resource type="AudioStream" uid="uid://u2q3mdjj77g" path="res://assets/sfx/explosions/zapsplat_explosion_short_airy_large_001_92190.wav" id="2_pw8pr"]
+
+[sub_resource type="Animation" id="Animation_flpl1"]
+resource_name = "explode"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GPUParticles2D:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.73333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AudioStreamPlayer2D:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AudioStreamPlayer2D2:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.433333),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AudioStreamPlayer2D3:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.933333),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_pw8pr"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GPUParticles2D:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AudioStreamPlayer2D:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AudioStreamPlayer2D2:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AudioStreamPlayer2D3:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_u0tvp"]
+_data = {
+&"RESET": SubResource("Animation_pw8pr"),
+&"explode": SubResource("Animation_flpl1")
+}
+
+[sub_resource type="Gradient" id="Gradient_2ldln"]
+interpolation_mode = 1
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_xo606"]
+gradient = SubResource("Gradient_2ldln")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
+[sub_resource type="Gradient" id="Gradient_62mmf"]
+offsets = PackedFloat32Array(0.005, 0.115, 0.275, 0.67, 1)
+colors = PackedColorArray(0.360358, 0.155647, 0.0428436, 1, 0.963286, 0.43261, 0.38431, 1, 0.616838, 0.154331, 0.215307, 1, 0.753984, 0.753984, 0.753984, 1, 0.114897, 0.114897, 0.114897, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ncirh"]
+gradient = SubResource("Gradient_62mmf")
+
+[sub_resource type="Curve" id="Curve_rh6gs"]
+_data = [Vector2(1e-05, 0), 0.0, 0.0, 0, 0, Vector2(0.190265, 1), 0.0, 0.0, 0, 0, Vector2(0.637168, 0.573034), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_rwji8"]
+curve = SubResource("Curve_rh6gs")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_v7lm8"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 35.67
+direction = Vector3(0, -1, 0)
+initial_velocity_min = 18.87
+initial_velocity_max = 18.87
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_rwji8")
+color_ramp = SubResource("GradientTexture1D_ncirh")
+
+[node name="PlayerDeath" type="Node2D"]
+script = ExtResource("1_flpl1")
+
+[node name="BodySprite" parent="." instance=ExtResource("1_fafj6")]
+modulate = Color(0.654918, 0.744686, 0.910997, 1)
+scale = Vector2(48, 20)
+
+[node name="Gun2" parent="." instance=ExtResource("1_fafj6")]
+modulate = Color(0.975482, 0.690805, 0.274644, 1)
+position = Vector2(30, -8)
+scale = Vector2(24, 8)
+
+[node name="Gun3" parent="." instance=ExtResource("1_fafj6")]
+modulate = Color(0.975482, 0.690805, 0.274644, 1)
+position = Vector2(29, 8)
+scale = Vector2(24, 8)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_u0tvp")
+}
+autoplay = "explode"
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 28
+texture = SubResource("GradientTexture2D_xo606")
+lifetime = 0.45
+explosiveness = 0.23
+process_material = SubResource("ParticleProcessMaterial_v7lm8")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_pw8pr")
+
+[node name="AudioStreamPlayer2D2" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_pw8pr")
+pitch_scale = 1.14
+
+[node name="AudioStreamPlayer2D3" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_pw8pr")
+pitch_scale = 0.76

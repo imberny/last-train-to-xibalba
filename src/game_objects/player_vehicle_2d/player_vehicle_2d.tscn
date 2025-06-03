@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://c1wbi2kt7221i"]
+[gd_scene load_steps=22 format=3 uid="uid://c1wbi2kt7221i"]
 
 [ext_resource type="Script" uid="uid://ffgbnmgbp6br" path="res://src/game_objects/player_vehicle_2d/player_vehicle_2d.gd" id="1_o8gf6"]
 [ext_resource type="PackedScene" uid="uid://dt0q1pb42hs6f" path="res://src/components/velocity/velocity.tscn" id="2_cs8f6"]
@@ -6,6 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://d1gqsdw8lt5b8" path="res://src/components/square_2d/square_2d.tscn" id="3_b7s65"]
 [ext_resource type="PackedScene" uid="uid://cb7koi37ki7ll" path="res://src/components/trail_2d/trail_2d.tscn" id="3_dwlbi"]
 [ext_resource type="PackedScene" uid="uid://3prgu1sbvisa" path="res://src/game_objects/gun/gun.tscn" id="3_q3ate"]
+[ext_resource type="PackedScene" uid="uid://l01uxojveimi" path="res://src/components/death/death.tscn" id="4_yn0u7"]
+[ext_resource type="PackedScene" uid="uid://bxg7f5l5rkhp0" path="res://src/game_objects/player_vehicle_2d/player_death_2d.tscn" id="5_j4sp8"]
 [ext_resource type="PackedScene" uid="uid://c2nw265h7x8ew" path="res://src/components/hitbox/hitbox.tscn" id="7_yn0u7"]
 
 [sub_resource type="Animation" id="Animation_dwlbi"]
@@ -20,7 +22,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(64, 24)]
+"values": [Vector2(48, 20)]
 }
 
 [sub_resource type="Animation" id="Animation_q3ate"]
@@ -36,7 +38,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.166667, 0.4),
 "transitions": PackedFloat32Array(2, 0.183011, 1.62451),
 "update": 0,
-"values": [Vector2(84.64, 8.48), Vector2(21.6, 41.825), Vector2(64, 24)]
+"values": [Vector2(84.64, 8.48), Vector2(21.6, 41.825), Vector2(48, 16)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_rwhi4"]
@@ -75,7 +77,7 @@ point_count = 2
 colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3h6ip"]
-size = Vector2(57, 20)
+size = Vector2(40, 16)
 
 [node name="PlayerVehicle2D" type="Node2D"]
 script = ExtResource("1_o8gf6")
@@ -88,6 +90,10 @@ acceleration = 9.545
 
 [node name="Health" parent="." node_paths=PackedStringArray("hitbox") instance=ExtResource("3_3h6ip")]
 hitbox = NodePath("../Hitbox")
+
+[node name="Death" parent="." node_paths=PackedStringArray("_health") instance=ExtResource("4_yn0u7")]
+_health = NodePath("../Health")
+_death_scene = ExtResource("5_j4sp8")
 
 [node name="BoostTimer" type="Timer" parent="."]
 wait_time = 0.6
@@ -102,7 +108,10 @@ libraries = {
 tree_root = SubResource("AnimationNodeStateMachine_q3ate")
 anim_player = NodePath("../AnimationPlayer")
 
-[node name="Trail2d" parent="." instance=ExtResource("3_dwlbi")]
+[node name="Behind" type="Marker2D" parent="."]
+position = Vector2(-23, 0)
+
+[node name="Trail2d" parent="Behind" instance=ExtResource("3_dwlbi")]
 show_behind_parent = true
 z_index = -1
 width = 24.61
@@ -111,16 +120,16 @@ gradient = SubResource("Gradient_dwlbi")
 
 [node name="BodySprite" parent="." instance=ExtResource("3_b7s65")]
 modulate = Color(0.654918, 0.744686, 0.910997, 1)
-scale = Vector2(64, 24)
+scale = Vector2(48, 20)
 
 [node name="PrimaryGun" parent="." node_paths=PackedStringArray("_bullet_spawner") instance=ExtResource("3_q3ate")]
 modulate = Color(0.806572, 0.265107, 0.295352, 1)
-position = Vector2(30, 12)
+position = Vector2(30, 8)
 _bullet_spawner = NodePath("../BulletSpawner")
 
 [node name="Gun2" parent="." instance=ExtResource("3_b7s65")]
 modulate = Color(0.975482, 0.690805, 0.274644, 1)
-position = Vector2(30, -12)
+position = Vector2(30, -8)
 scale = Vector2(24, 8)
 
 [node name="BulletSpawner" type="Marker2D" parent="."]
@@ -131,3 +140,45 @@ position = Vector2(32, 0)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 position = Vector2(-2.5, 0)
 shape = SubResource("RectangleShape2D_3h6ip")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -88.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 60
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MarginContainer"]
+layout_mode = 2
+
+[node name="AmmoHBox" type="HBoxContainer" parent="CanvasLayer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="AmmoCountLabel" type="Label" parent="CanvasLayer/MarginContainer/VBoxContainer/AmmoHBox"]
+layout_mode = 2
+text = "Ammo:"
+
+[node name="AmmoCount" type="Label" parent="CanvasLayer/MarginContainer/VBoxContainer/AmmoHBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "100"
+
+[node name="HealthHBox" type="HBoxContainer" parent="CanvasLayer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HealthLabel" type="Label" parent="CanvasLayer/MarginContainer/VBoxContainer/HealthHBox"]
+layout_mode = 2
+text = "Health:"
+
+[node name="HealthCount" type="Label" parent="CanvasLayer/MarginContainer/VBoxContainer/HealthHBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "100"

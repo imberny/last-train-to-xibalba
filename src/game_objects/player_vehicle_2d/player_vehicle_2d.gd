@@ -9,6 +9,10 @@ class_name PlayerVehicle2D extends Node2D
 @onready var _playback: AnimationNodeStateMachinePlayback = _anim_tree["parameters/playback"]
 
 
+func _process(_delta: float) -> void:
+	%HealthCount.text = str($Health._hitpoints)
+
+
 func move(motion: Vector2, delta: float) -> void:
 	_velocity.accelerate_in_direction(motion, delta)
 	_velocity.move(self, delta)

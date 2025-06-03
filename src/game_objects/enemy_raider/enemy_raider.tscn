@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://d1gqsdw8lt5b8" path="res://src/components/square_2d/square_2d.tscn" id="1_ofbph"]
 [ext_resource type="PackedScene" uid="uid://dejh0cxjkbis1" path="res://src/components/health/health.tscn" id="2_dkkhw"]
 [ext_resource type="PackedScene" uid="uid://c2nw265h7x8ew" path="res://src/components/hitbox/hitbox.tscn" id="2_xxqc4"]
-[ext_resource type="PackedScene" uid="uid://l01uxojveimi" path="res://src/components/enemy_death/enemy_death.tscn" id="3_02my5"]
+[ext_resource type="PackedScene" uid="uid://l01uxojveimi" path="res://src/components/death/death.tscn" id="3_02my5"]
 [ext_resource type="PackedScene" uid="uid://b0s2uqs7ib8ns" path="res://src/game_objects/enemy_raider/enemy_raider_explosion.tscn" id="4_02my5"]
 [ext_resource type="PackedScene" uid="uid://3prgu1sbvisa" path="res://src/game_objects/gun/gun.tscn" id="5_rpucj"]
 [ext_resource type="PackedScene" uid="uid://1y1k4d17hcxl" path="res://src/game_objects/bullets_2d/enemy_bullet_2d.tscn" id="6_htgso"]
@@ -18,7 +18,7 @@ script = ExtResource("1_10e8t")
 hitpoints_max = 15
 hitbox = NodePath("../Hitbox")
 
-[node name="EnemyDeath" parent="." node_paths=PackedStringArray("_health") instance=ExtResource("3_02my5")]
+[node name="Death" parent="." node_paths=PackedStringArray("_health") instance=ExtResource("3_02my5")]
 _health = NodePath("../Health")
 _death_scene = ExtResource("4_02my5")
 
@@ -41,3 +41,16 @@ collision_mask = 128
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 shape = SubResource("CircleShape2D_10e8t")
+
+[node name="EnemyDetectorRay" type="RayCast2D" parent="."]
+target_position = Vector2(800, 0)
+collision_mask = 64
+collide_with_areas = true
+collide_with_bodies = false
+
+[node name="StateLabel" type="Label" parent="."]
+offset_left = -18.0
+offset_top = -33.0
+offset_right = 22.0
+offset_bottom = -10.0
+text = "State"

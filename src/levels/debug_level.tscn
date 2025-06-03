@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=3 uid="uid://cckmqmn6mbhtl"]
 
 [ext_resource type="PackedScene" uid="uid://c1wbi2kt7221i" path="res://src/game_objects/player_vehicle_2d/player_vehicle_2d.tscn" id="1_h7xki"]
-[ext_resource type="PackedScene" uid="uid://02n7xapox2w5" path="res://src/components/input_controller/input_controller.tscn" id="1_hs2m2"]
+[ext_resource type="PackedScene" uid="uid://02n7xapox2w5" path="res://src/managers/player_input_controller/player_input_controller.tscn" id="1_hs2m2"]
 [ext_resource type="Script" uid="uid://lygoeib4pkc3" path="res://src/levels/level.gd" id="1_ijpmm"]
 [ext_resource type="PackedScene" uid="uid://cso6cttn5l4m0" path="res://src/managers/wave_manager/wave_manager.tscn" id="2_rprlp"]
 [ext_resource type="Script" uid="uid://biehkyjt7fewg" path="res://src/resources/waves/wave_definition.gd" id="3_4cgw3"]
@@ -29,8 +29,7 @@ script = ExtResource("1_ijpmm")
 _waves = Array[ExtResource("3_4cgw3")]([SubResource("Resource_014tj"), SubResource("Resource_rprlp")])
 _spawners = [NodePath("../EnemySpawner1"), NodePath("../EnemySpawner2"), NodePath("../EnemySpawner3"), NodePath("../EnemySpawner4"), NodePath("../EnemySpawner5"), NodePath("../EnemySpawner6"), NodePath("../EnemySpawner7"), NodePath("../EnemySpawner8"), NodePath("../EnemySpawner9")]
 
-[node name="InputController" parent="." node_paths=PackedStringArray("_player") instance=ExtResource("1_hs2m2")]
-_player = NodePath("../Player")
+[node name="PlayerInputController" parent="." instance=ExtResource("1_hs2m2")]
 
 [node name="Player" parent="." instance=ExtResource("1_h7xki")]
 position = Vector2(214, 312)
@@ -64,31 +63,47 @@ position = Vector2(752, 80)
 metadata/_edit_group_ = true
 
 [node name="Square2D" parent="TrainPiece" instance=ExtResource("6_mjrdq")]
-scale = Vector2(196, 64)
+scale = Vector2(128, 48)
 
 [node name="TrainPiece2" type="Node2D" parent="."]
-modulate = Color(0.601223, 0.601223, 0.601223, 1)
-position = Vector2(547, 80)
+modulate = Color(0.61243, 0.584974, 0.551086, 1)
+position = Vector2(619, 80)
 metadata/_edit_group_ = true
 
 [node name="Square2D" parent="TrainPiece2" instance=ExtResource("6_mjrdq")]
-scale = Vector2(196, 64)
+scale = Vector2(128, 48)
 
 [node name="TrainPiece3" type="Node2D" parent="."]
-modulate = Color(0.601223, 0.601223, 0.601223, 1)
-position = Vector2(335, 80)
+modulate = Color(0.61243, 0.584974, 0.551086, 1)
+position = Vector2(485, 80)
 metadata/_edit_group_ = true
 
 [node name="Square2D" parent="TrainPiece3" instance=ExtResource("6_mjrdq")]
-scale = Vector2(196, 64)
+scale = Vector2(128, 48)
 
 [node name="TrainPiece4" type="Node2D" parent="."]
-modulate = Color(0.601223, 0.601223, 0.601223, 1)
-position = Vector2(123, 80)
+modulate = Color(0.61243, 0.584974, 0.551086, 1)
+position = Vector2(352, 80)
 metadata/_edit_group_ = true
 
 [node name="Square2D" parent="TrainPiece4" instance=ExtResource("6_mjrdq")]
-scale = Vector2(196, 64)
+scale = Vector2(128, 48)
+
+[node name="TrainPiece5" type="Node2D" parent="."]
+modulate = Color(0.61243, 0.584974, 0.551086, 1)
+position = Vector2(217, 80)
+metadata/_edit_group_ = true
+
+[node name="Square2D" parent="TrainPiece5" instance=ExtResource("6_mjrdq")]
+scale = Vector2(128, 48)
+
+[node name="TrainPiece6" type="Node2D" parent="."]
+modulate = Color(0.61243, 0.584974, 0.551086, 1)
+position = Vector2(85, 80)
+metadata/_edit_group_ = true
+
+[node name="Square2D" parent="TrainPiece6" instance=ExtResource("6_mjrdq")]
+scale = Vector2(128, 48)
 
 [node name="EnemySpawner1" type="Marker2D" parent="."]
 position = Vector2(111, 715)
