@@ -1,4 +1,4 @@
-class_name LevelContainer extends Node
+class_name LevelContainer extends Node2D
 
 signal back_to_main_menu
 
