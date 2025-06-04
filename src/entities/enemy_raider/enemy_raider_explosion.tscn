@@ -1,13 +1,13 @@
 [gd_scene load_steps=15 format=3 uid="uid://b0s2uqs7ib8ns"]
 
-[ext_resource type="Script" uid="uid://c37vr3f3tbm85" path="res://src/effects/play_and_free.gd" id="1_icwrd"]
-[ext_resource type="AudioStream" uid="uid://u2q3mdjj77g" path="res://assets/sfx/explosions/zapsplat_explosion_short_airy_large_001_92190.wav" id="2_0f705"]
-[ext_resource type="AudioStream" uid="uid://x2iyvfo74lu1" path="res://assets/sfx/explosions/zapsplat_explosion_short_airy_large_002_92191.wav" id="3_hywkn"]
+[ext_resource type="Script" uid="uid://c37vr3f3tbm85" path="res://src/effects/play_and_free.gd" id="1_dyhxb"]
+[ext_resource type="AudioStream" uid="uid://u2q3mdjj77g" path="res://assets/sfx/explosions/zapsplat_explosion_short_airy_large_001_92190.wav" id="2_jf7hy"]
+[ext_resource type="AudioStream" uid="uid://x2iyvfo74lu1" path="res://assets/sfx/explosions/zapsplat_explosion_short_airy_large_002_92191.wav" id="3_m88md"]
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_ec3gm"]
 streams_count = 2
-stream_0/stream = ExtResource("2_0f705")
-stream_1/stream = ExtResource("3_hywkn")
+stream_0/stream = ExtResource("2_jf7hy")
+stream_1/stream = ExtResource("3_m88md")
 
 [sub_resource type="Gradient" id="Gradient_gcfmu"]
 interpolation_mode = 1
@@ -104,7 +104,7 @@ _data = {
 }
 
 [node name="EnemyRaiderExplosion" type="Node2D"]
-script = ExtResource("1_icwrd")
+script = ExtResource("1_dyhxb")
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource("AudioStreamRandomizer_ec3gm")

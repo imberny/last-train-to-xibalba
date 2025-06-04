@@ -14,6 +14,10 @@ func get_player() -> PlayerVehicle2D:
 	return _player
 
 
+func get_level() -> Level:
+	return level
+
+
 func _on_tree_node_added(node: Node) -> void:
 	if node is PlayerVehicle2D:
 		_player = node

@@ -1,13 +1,13 @@
 [gd_scene load_steps=22 format=3 uid="uid://c1wbi2kt7221i"]
 
-[ext_resource type="Script" uid="uid://ffgbnmgbp6br" path="res://src/game_objects/player_vehicle_2d/player_vehicle_2d.gd" id="1_o8gf6"]
+[ext_resource type="Script" uid="uid://ffgbnmgbp6br" path="res://src/entities/player_vehicle_2d/player_vehicle_2d.gd" id="1_o8gf6"]
 [ext_resource type="PackedScene" uid="uid://dt0q1pb42hs6f" path="res://src/components/velocity/velocity.tscn" id="2_cs8f6"]
 [ext_resource type="PackedScene" uid="uid://dejh0cxjkbis1" path="res://src/components/health/health.tscn" id="3_3h6ip"]
 [ext_resource type="PackedScene" uid="uid://d1gqsdw8lt5b8" path="res://src/components/square_2d/square_2d.tscn" id="3_b7s65"]
 [ext_resource type="PackedScene" uid="uid://cb7koi37ki7ll" path="res://src/components/trail_2d/trail_2d.tscn" id="3_dwlbi"]
-[ext_resource type="PackedScene" uid="uid://3prgu1sbvisa" path="res://src/game_objects/gun/gun.tscn" id="3_q3ate"]
+[ext_resource type="PackedScene" uid="uid://3prgu1sbvisa" path="res://src/weapons/gun/gun.tscn" id="3_q3ate"]
 [ext_resource type="PackedScene" uid="uid://l01uxojveimi" path="res://src/components/death/death.tscn" id="4_yn0u7"]
-[ext_resource type="PackedScene" uid="uid://bxg7f5l5rkhp0" path="res://src/game_objects/player_vehicle_2d/player_death_2d.tscn" id="5_j4sp8"]
+[ext_resource type="PackedScene" uid="uid://bxg7f5l5rkhp0" path="res://src/entities/player_vehicle_2d/player_death_2d.tscn" id="5_j4sp8"]
 [ext_resource type="PackedScene" uid="uid://c2nw265h7x8ew" path="res://src/components/hitbox/hitbox.tscn" id="7_yn0u7"]
 
 [sub_resource type="Animation" id="Animation_dwlbi"]

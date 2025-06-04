@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://la7ggqwg2de6"]
 
-[ext_resource type="Script" uid="uid://chd8qyh7houxn" path="res://src/game_objects/bullets_2d/bullet_2d.gd" id="1_eeuri"]
+[ext_resource type="Script" uid="uid://chd8qyh7houxn" path="res://src/projectiles/bullets_2d/bullet_2d.gd" id="1_eeuri"]
 [ext_resource type="PackedScene" uid="uid://okvgkx6bb1un" path="res://src/components/hurtbox/hurtbox.tscn" id="2_0fago"]
 
 [sub_resource type="Gradient" id="Gradient_v88x2"]

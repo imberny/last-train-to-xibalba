@@ -1,12 +1,12 @@
 [gd_scene load_steps=12 format=3 uid="uid://cckmqmn6mbhtl"]
 
-[ext_resource type="PackedScene" uid="uid://c1wbi2kt7221i" path="res://src/game_objects/player_vehicle_2d/player_vehicle_2d.tscn" id="1_h7xki"]
-[ext_resource type="PackedScene" uid="uid://02n7xapox2w5" path="res://src/managers/player_input_controller/player_input_controller.tscn" id="1_hs2m2"]
+[ext_resource type="PackedScene" uid="uid://c1wbi2kt7221i" path="res://src/entities/player_vehicle_2d/player_vehicle_2d.tscn" id="1_h7xki"]
+[ext_resource type="PackedScene" uid="uid://02n7xapox2w5" path="res://src/input/player_input_controller/player_input_controller.tscn" id="1_hs2m2"]
 [ext_resource type="Script" uid="uid://lygoeib4pkc3" path="res://src/levels/level.gd" id="1_ijpmm"]
 [ext_resource type="PackedScene" uid="uid://cso6cttn5l4m0" path="res://src/managers/wave_manager/wave_manager.tscn" id="2_rprlp"]
 [ext_resource type="Script" uid="uid://biehkyjt7fewg" path="res://src/resources/waves/wave_definition.gd" id="3_4cgw3"]
-[ext_resource type="PackedScene" uid="uid://484piapv22pv" path="res://src/game_objects/game_camera_2d/game_camera_2d.tscn" id="3_gx72n"]
-[ext_resource type="PackedScene" uid="uid://b5lsuh120g6h7" path="res://src/game_objects/enemy_raider/enemy_raider.tscn" id="4_pq22j"]
+[ext_resource type="PackedScene" uid="uid://484piapv22pv" path="res://src/camera/game_camera_2d/game_camera_2d.tscn" id="3_gx72n"]
+[ext_resource type="PackedScene" uid="uid://b5lsuh120g6h7" path="res://src/entities/enemy_raider/enemy_raider.tscn" id="4_pq22j"]
 [ext_resource type="PackedScene" uid="uid://d1gqsdw8lt5b8" path="res://src/components/square_2d/square_2d.tscn" id="6_mjrdq"]
 
 [sub_resource type="Resource" id="Resource_014tj"]
@@ -36,6 +36,7 @@ position = Vector2(214, 312)
 
 [node name="GameCamera2D" parent="." instance=ExtResource("3_gx72n")]
 position = Vector2(575, 327)
+enabled = false
 _trauma_maximum = 40.02
 _trauma_fade = 13.97
 

@@ -1,9 +1,28 @@
-[gd_scene load_steps=5 format=3 uid="uid://6l2kblvk0bri"]
+[gd_scene load_steps=12 format=3 uid="uid://6l2kblvk0bri"]
 
 [ext_resource type="Script" uid="uid://dnx45qu5pkwhs" path="res://src/main.gd" id="1_eewff"]
 [ext_resource type="PackedScene" uid="uid://drw43yoago2g" path="res://src/menus/splash_screen/splash_screen.tscn" id="2_gh0ne"]
 [ext_resource type="PackedScene" uid="uid://bkipex3r08jho" path="res://src/menus/title_screen/title_screen.tscn" id="3_3cfgd"]
 [ext_resource type="Script" uid="uid://coaqxg28c7oym" path="res://src/level_container.gd" id="3_5q4o7"]
+[ext_resource type="Script" uid="uid://cfkjwe4sxsmy8" path="res://src/level_3d_manager.gd" id="5_fyndt"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_3cfgd"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fyndt"]
+albedo_color = Color(0.714919, 0.597074, 0.999321, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_kmhfv"]
+material = SubResource("StandardMaterial3D_fyndt")
+size = Vector3(0.2, 0.2, 0.2)
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_fyndt"]
+
+[sub_resource type="Sky" id="Sky_kmhfv"]
+sky_material = SubResource("ProceduralSkyMaterial_fyndt")
+
+[sub_resource type="Environment" id="Environment_rlaii"]
+background_mode = 2
+sky = SubResource("Sky_kmhfv")
 
 [node name="Main" type="Node"]
 script = ExtResource("1_eewff")
@@ -12,5 +31,40 @@ _title_scene = ExtResource("3_3cfgd")
 
 [node name="LevelContainer" type="Node" parent="."]
 script = ExtResource("3_5q4o7")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="LevelContainer"]
+visible = false
+z_index = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="LevelContainer/SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(1152, 648)
+render_target_update_mode = 0
+
+[node name="Camera3D" type="Camera3D" parent="LevelContainer/SubViewportContainer/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 0.956996, 0.290101, 0, -0.290101, 0.956996, 0, 1.01235, 2.51319)
+projection = 1
+current = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="LevelContainer/SubViewportContainer/SubViewport"]
+mesh = SubResource("PlaneMesh_3cfgd")
+skeleton = NodePath("../../..")
+
+[node name="Player3D" type="MeshInstance3D" parent="LevelContainer/SubViewportContainer/SubViewport"]
+mesh = SubResource("BoxMesh_kmhfv")
+skeleton = NodePath("../../../..")
+
+[node name="Level3DManager" type="Node" parent="LevelContainer/SubViewportContainer/SubViewport" node_paths=PackedStringArray("_player_3d_node")]
+script = ExtResource("5_fyndt")
+_player_3d_node = NodePath("../Player3D")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="LevelContainer/SubViewportContainer/SubViewport"]
+environment = SubResource("Environment_rlaii")
 
 [node name="LogManager" type="Node" parent="."]

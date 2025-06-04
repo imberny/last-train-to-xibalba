@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://484piapv22pv"]
 
-[ext_resource type="Script" uid="uid://b8xr3454nc2j" path="res://src/game_objects/game_camera_2d/game_camera_2d.gd" id="1_b6x1h"]
+[ext_resource type="Script" uid="uid://b8xr3454nc2j" path="res://src/camera/game_camera_2d/game_camera_2d.gd" id="1_b6x1h"]
 
 [node name="GameCamera2D" type="Camera2D"]
 script = ExtResource("1_b6x1h")

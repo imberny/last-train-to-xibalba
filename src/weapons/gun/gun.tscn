@@ -1,7 +1,7 @@
 [gd_scene load_steps=17 format=3 uid="uid://3prgu1sbvisa"]
 
-[ext_resource type="Script" uid="uid://dqfn5kfi3aepx" path="res://src/game_objects/gun/gun.gd" id="1_tvs4u"]
-[ext_resource type="PackedScene" uid="uid://la7ggqwg2de6" path="res://src/game_objects/bullets_2d/player_bullet_2d.tscn" id="2_djin3"]
+[ext_resource type="Script" uid="uid://dqfn5kfi3aepx" path="res://src/weapons/gun/gun.gd" id="1_tvs4u"]
+[ext_resource type="PackedScene" uid="uid://la7ggqwg2de6" path="res://src/projectiles/bullets_2d/player_bullet_2d.tscn" id="2_djin3"]
 [ext_resource type="PackedScene" uid="uid://d1gqsdw8lt5b8" path="res://src/components/square_2d/square_2d.tscn" id="3_0j1yv"]
 [ext_resource type="PackedScene" uid="uid://bawg0206uathn" path="res://src/components/audio_stream_player_2d_pool/audio_stream_player_2d_pool.tscn" id="4_qeilf"]
 [ext_resource type="AudioStream" uid="uid://curx1uwvo466q" path="res://assets/sfx/gunshots/gma_gun_rifle_shot_01_517.wav" id="5_h3vq3"]

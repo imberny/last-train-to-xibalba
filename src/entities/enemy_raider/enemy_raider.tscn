@@ -1,18 +1,18 @@
-[gd_scene load_steps=10 format=3 uid="uid://b5lsuh120g6h7"]
+[gd_scene load_steps=9 format=3 uid="uid://b5lsuh120g6h7"]
 
-[ext_resource type="Script" uid="uid://cwbs3u6jt7xdy" path="res://src/game_objects/enemy_raider/enemy_raider.gd" id="1_10e8t"]
+[ext_resource type="Script" uid="uid://cwbs3u6jt7xdy" path="res://src/entities/enemy_raider/enemy_raider.gd" id="1_10e8t"]
 [ext_resource type="PackedScene" uid="uid://d1gqsdw8lt5b8" path="res://src/components/square_2d/square_2d.tscn" id="1_ofbph"]
 [ext_resource type="PackedScene" uid="uid://dejh0cxjkbis1" path="res://src/components/health/health.tscn" id="2_dkkhw"]
 [ext_resource type="PackedScene" uid="uid://c2nw265h7x8ew" path="res://src/components/hitbox/hitbox.tscn" id="2_xxqc4"]
 [ext_resource type="PackedScene" uid="uid://l01uxojveimi" path="res://src/components/death/death.tscn" id="3_02my5"]
-[ext_resource type="PackedScene" uid="uid://b0s2uqs7ib8ns" path="res://src/game_objects/enemy_raider/enemy_raider_explosion.tscn" id="4_02my5"]
-[ext_resource type="PackedScene" uid="uid://3prgu1sbvisa" path="res://src/game_objects/gun/gun.tscn" id="5_rpucj"]
-[ext_resource type="PackedScene" uid="uid://1y1k4d17hcxl" path="res://src/game_objects/bullets_2d/enemy_bullet_2d.tscn" id="6_htgso"]
+[ext_resource type="PackedScene" uid="uid://b0s2uqs7ib8ns" path="res://src/entities/enemy_raider/enemy_raider_explosion.tscn" id="4_02my5"]
+[ext_resource type="PackedScene" uid="uid://1y1k4d17hcxl" path="res://src/projectiles/bullets_2d/enemy_bullet_2d.tscn" id="6_htgso"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_10e8t"]
 
 [node name="EnemyRaider" type="Node2D"]
 script = ExtResource("1_10e8t")
+_bullet_scene = ExtResource("6_htgso")
 
 [node name="Health" parent="." node_paths=PackedStringArray("hitbox") instance=ExtResource("2_dkkhw")]
 hitpoints_max = 15
@@ -22,14 +22,9 @@ hitbox = NodePath("../Hitbox")
 _health = NodePath("../Health")
 _death_scene = ExtResource("4_02my5")
 
-[node name="Gun" parent="." node_paths=PackedStringArray("_bullet_spawner") instance=ExtResource("5_rpucj")]
-modulate = Color(0.605274, 0.605274, 0.605274, 1)
-position = Vector2(5, 0)
-_bullet_scene = ExtResource("6_htgso")
-_bullet_spawner = NodePath(".")
-_rate_of_fire = 0.44
-_spread_degrees = 0.0
-_trauma_intensity = 0.865
+[node name="ShootTimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
 
 [node name="Square2D" parent="." instance=ExtResource("1_ofbph")]
 modulate = Color(0.86064, 0, 0.122898, 1)
@@ -41,12 +36,6 @@ collision_mask = 128
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 shape = SubResource("CircleShape2D_10e8t")
-
-[node name="EnemyDetectorRay" type="RayCast2D" parent="."]
-target_position = Vector2(800, 0)
-collision_mask = 64
-collide_with_areas = true
-collide_with_bodies = false
 
 [node name="StateLabel" type="Label" parent="."]
 offset_left = -18.0

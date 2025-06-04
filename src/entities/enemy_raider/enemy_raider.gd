@@ -9,13 +9,12 @@ enum State {
 }
 
 @export var _speed := 100.0
+@export var _bullet_scene: PackedScene
 
 var _state_machine: FuncStateMachine
-
-@onready var _gun: Gun = $Gun
-@onready var _enemy_ray: RayCast2D = $EnemyDetectorRay
-
 var _destination: Vector2
+
+@onready var _shoot_timer: Timer = $ShootTimer
 
 # TODO: Desired behaviour: move to an initial position, prep fire, fire some bullets towards player, reposition
 
@@ -25,7 +24,7 @@ func _ready() -> void:
 	_state_machine.add_state(State.SPAWNING, _update_spawning)
 	_state_machine.add_state(State.THINKING, _update_thinking)
 	_state_machine.add_state(State.PREP_SHOOTING, _update_prep_shooting, _enter_prep_shooting)
-	_state_machine.add_state(State.SHOOTING, _update_shooting, _enter_shooting, _exit_shooting)
+	_state_machine.add_state(State.SHOOTING, _update_shooting, _enter_shooting)
 	_state_machine.add_state(State.MOVING, _update_moving)
 	_state_machine.set_start_state(State.SPAWNING)
 
@@ -35,13 +34,13 @@ func _physics_process(delta: float) -> void:
 	$StateLabel.text = State.find_key(_state_machine._current_state_key)
 
 
-func _update_spawning(delta: float) -> void:
+func _update_spawning(_delta: float) -> void:
 	_destination.x = global_position.x
 	_destination.y = randf_range(200.0, 500.0)
 	_state_machine.transition_to(State.MOVING)
 
 
-func _update_thinking(delta: float) -> void:
+func _update_thinking(_delta: float) -> void:
 	var player := GameService.get_player()
 	if not player:
 		_destination = Vector2(randf_range(100.0, 800.0), randf_range(100.0, 400.0))
@@ -69,38 +68,41 @@ var _time_prep_shooting := 0.0
 
 
 func _enter_prep_shooting() -> void:
-	_time_shooting = 0.0
+	_time_prep_shooting = 0.0
 
 
 func _update_prep_shooting(delta: float) -> void:
-	if not _is_player_in_sight():
-		_state_machine.transition_to(State.THINKING)
-		return
-
 	_time_prep_shooting += delta
 	if 1.0 < _time_prep_shooting:
 		_state_machine.transition_to(State.SHOOTING)
 
 
-var _time_shooting := 0.0
+var _times_shot := 0
 
 
 func _enter_shooting() -> void:
-	_time_shooting = 0.0
-	_gun.pull_trigger()
-
-
-func _exit_shooting() -> void:
-	_gun.release_trigger()
+	_times_shot = 0
 
 
 func _update_shooting(_delta: float) -> void:
-	_time_shooting += _delta
+	if _shoot_timer.is_stopped():
+		_shoot_timer.start()
+		_times_shot += 1
+		_shoot()
+
+	if 3 == _times_shot:
+		_state_machine.transition_to(State.THINKING)
+
+
+func _shoot() -> void:
+	var dir := Vector2.LEFT
 	var player := GameService.get_player()
 	if player:
-		look_at(player.global_position)
-	if _time_shooting >= 1.3:
-		_state_machine.transition_to(State.THINKING)
+		dir = global_position.direction_to(player.global_position)
+	var bullet: Node2D = _bullet_scene.instantiate()
+	bullet.global_transform = global_transform
+	GameService.get_level().add_child(bullet)
+	bullet.look_at(bullet.global_position + dir)
 
 
 func _update_moving(delta: float) -> void:
@@ -110,26 +112,3 @@ func _update_moving(delta: float) -> void:
 
 	var dir := global_position.direction_to(_destination)
 	global_position += dir * _speed * delta
-
-
-func _is_player_in_sight() -> bool:
-	var player := GameService.get_player()
-	if not player:
-		return false
-
-	var is_player_aligned := absf(global_position.y - player.global_position.y) < 50.0
-	if not is_player_aligned:
-		return false
-
-	if _enemy_ray.is_colliding():
-		var enemy: Node2D = _enemy_ray.get_collider()
-		if not is_instance_valid(enemy):
-			# this fucks la patente
-			return false
-
-		return (
-			global_position.distance_to(enemy.global_position)
-			> global_position.distance_to(player.global_position)
-		)
-
-	return true
