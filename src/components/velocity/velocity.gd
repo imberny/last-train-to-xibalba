@@ -3,6 +3,13 @@ class_name Velocity extends Node
 @export var max_speed := 40
 @export var acceleration := 5.0
 
+var x: float:
+	get:
+		return _velocity.x
+var y: float:
+	get:
+		return _velocity.y
+
 var _velocity: Vector2
 
 

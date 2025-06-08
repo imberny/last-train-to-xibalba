@@ -90,7 +90,7 @@ func _update_shooting(_delta: float) -> void:
 		_times_shot += 1
 		_shoot()
 
-	if 3 == _times_shot:
+	if 2 == _times_shot:
 		_state_machine.transition_to(State.THINKING)
 
 
@@ -99,6 +99,8 @@ func _shoot() -> void:
 	var player := GameService.get_player()
 	if player:
 		dir = global_position.direction_to(player.global_position)
+	var spread := deg_to_rad(3.0)
+	dir = dir.rotated(randf_range(-spread, spread))
 	var bullet: Node2D = _bullet_scene.instantiate()
 	bullet.global_transform = global_transform
 	GameService.get_level().add_child(bullet)

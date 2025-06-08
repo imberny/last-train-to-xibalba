@@ -12,6 +12,7 @@ func change_level(level_scene: PackedScene) -> void:
 	add_child(_current_level)
 
 	_current_level.back_to_main_menu.connect(_on_current_level_back_to_main_menu)
+	_current_level.completed.connect(_on_current_level_completed)
 
 
 func exit_level() -> void:
@@ -24,4 +25,8 @@ func exit_level() -> void:
 
 
 func _on_current_level_back_to_main_menu() -> void:
+	back_to_main_menu.emit()
+
+
+func _on_current_level_completed() -> void:
 	back_to_main_menu.emit()

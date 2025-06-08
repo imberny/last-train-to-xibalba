@@ -8,9 +8,15 @@ class_name PlayerVehicle2D extends Node2D
 @onready var _anim_tree: AnimationTree = $AnimationTree
 @onready var _playback: AnimationNodeStateMachinePlayback = _anim_tree["parameters/playback"]
 
+var _is_flipped := false
 
-func _process(_delta: float) -> void:
+
+func _process(delta: float) -> void:
 	%HealthCount.text = str($Health._hitpoints)
+	var target_rotation: float = _velocity.y * deg_to_rad(15.0) / _velocity.max_speed
+	if _is_flipped:
+		target_rotation += PI
+	rotation = lerpf(rotation, target_rotation, delta * 15.0)
 
 
 func move(motion: Vector2, delta: float) -> void:
@@ -35,7 +41,7 @@ func boost(direction: Vector2, delta: float) -> void:
 func flip_around() -> void:
 	# https://github.com/godotengine/godot/issues/17405
 	# https://forum.godotengine.org/t/why-my-character-scale-keep-changing/13909/5
-	rotation = wrapf(rotation + PI, -PI, PI)
+	_is_flipped = !_is_flipped
 
 
 func primary_pull_trigger() -> void:

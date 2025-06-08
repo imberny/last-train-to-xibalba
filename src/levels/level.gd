@@ -1,6 +1,7 @@
 class_name Level extends Node
 
 signal back_to_main_menu
+signal completed
 
 @onready var _wave_manager: WaveManager = $WaveManager
 
@@ -24,4 +25,4 @@ func quit_to_main_menu() -> void:
 
 
 func _on_wave_manager_finished() -> void:
-	quit_to_main_menu()
+	completed.emit()

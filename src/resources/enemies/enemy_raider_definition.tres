@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="EnemyDefinition" load_steps=3 format=3 uid="uid://ciu6cp5gxfko7"]
+
+[ext_resource type="Script" uid="uid://0wuqaryxn8dj" path="res://src/resources/enemy_definition.gd" id="1_1ebhg"]
+[ext_resource type="PackedScene" uid="uid://b5lsuh120g6h7" path="res://src/entities/enemy_raider/enemy_raider.tscn" id="1_78dv5"]
+
+[resource]
+script = ExtResource("1_1ebhg")
+scene = ExtResource("1_78dv5")
+difficulty = 0
+metadata/_custom_type_script = "uid://0wuqaryxn8dj"

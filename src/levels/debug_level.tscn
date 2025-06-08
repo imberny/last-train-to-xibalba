@@ -1,23 +1,13 @@
-[gd_scene load_steps=12 format=3 uid="uid://cckmqmn6mbhtl"]
+[gd_scene load_steps=10 format=3 uid="uid://cckmqmn6mbhtl"]
 
 [ext_resource type="PackedScene" uid="uid://c1wbi2kt7221i" path="res://src/entities/player_vehicle_2d/player_vehicle_2d.tscn" id="1_h7xki"]
 [ext_resource type="PackedScene" uid="uid://02n7xapox2w5" path="res://src/input/player_input_controller/player_input_controller.tscn" id="1_hs2m2"]
 [ext_resource type="Script" uid="uid://lygoeib4pkc3" path="res://src/levels/level.gd" id="1_ijpmm"]
 [ext_resource type="PackedScene" uid="uid://cso6cttn5l4m0" path="res://src/managers/wave_manager/wave_manager.tscn" id="2_rprlp"]
-[ext_resource type="Script" uid="uid://biehkyjt7fewg" path="res://src/resources/waves/wave_definition.gd" id="3_4cgw3"]
+[ext_resource type="Resource" uid="uid://d10wjvv65082t" path="res://src/resources/waves/basic_raider_wave.tres" id="3_b1pne"]
 [ext_resource type="PackedScene" uid="uid://484piapv22pv" path="res://src/camera/game_camera_2d/game_camera_2d.tscn" id="3_gx72n"]
-[ext_resource type="PackedScene" uid="uid://b5lsuh120g6h7" path="res://src/entities/enemy_raider/enemy_raider.tscn" id="4_pq22j"]
 [ext_resource type="PackedScene" uid="uid://d1gqsdw8lt5b8" path="res://src/components/square_2d/square_2d.tscn" id="6_mjrdq"]
-
-[sub_resource type="Resource" id="Resource_014tj"]
-script = ExtResource("3_4cgw3")
-enemy_scenes = Array[PackedScene]([ExtResource("4_pq22j"), ExtResource("4_pq22j"), ExtResource("4_pq22j"), ExtResource("4_pq22j"), ExtResource("4_pq22j"), ExtResource("4_pq22j"), ExtResource("4_pq22j"), ExtResource("4_pq22j"), ExtResource("4_pq22j"), ExtResource("4_pq22j"), ExtResource("4_pq22j")])
-metadata/_custom_type_script = "uid://biehkyjt7fewg"
-
-[sub_resource type="Resource" id="Resource_rprlp"]
-script = ExtResource("3_4cgw3")
-enemy_scenes = Array[PackedScene]([ExtResource("4_pq22j"), ExtResource("4_pq22j"), ExtResource("4_pq22j"), ExtResource("4_pq22j"), ExtResource("4_pq22j"), ExtResource("4_pq22j"), ExtResource("4_pq22j"), ExtResource("4_pq22j"), ExtResource("4_pq22j"), ExtResource("4_pq22j"), ExtResource("4_pq22j"), ExtResource("4_pq22j"), ExtResource("4_pq22j"), ExtResource("4_pq22j"), ExtResource("4_pq22j")])
-metadata/_custom_type_script = "uid://biehkyjt7fewg"
+[ext_resource type="Script" uid="uid://ml6hcw4flrxa" path="res://src/ui/auto_label.gd" id="8_rprlp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gx72n"]
 size = Vector2(137, 1538)
@@ -26,7 +16,7 @@ size = Vector2(137, 1538)
 script = ExtResource("1_ijpmm")
 
 [node name="WaveManager" parent="." node_paths=PackedStringArray("_spawners") instance=ExtResource("2_rprlp")]
-_waves = Array[ExtResource("3_4cgw3")]([SubResource("Resource_014tj"), SubResource("Resource_rprlp")])
+_wave_definition = ExtResource("3_b1pne")
 _spawners = [NodePath("../EnemySpawner1"), NodePath("../EnemySpawner2"), NodePath("../EnemySpawner3"), NodePath("../EnemySpawner4"), NodePath("../EnemySpawner5"), NodePath("../EnemySpawner6"), NodePath("../EnemySpawner7"), NodePath("../EnemySpawner8"), NodePath("../EnemySpawner9")]
 
 [node name="PlayerInputController" parent="." instance=ExtResource("1_hs2m2")]
@@ -137,3 +127,24 @@ rotation = 3.14159
 [node name="EnemySpawner9" type="Marker2D" parent="."]
 position = Vector2(1022, 715)
 rotation = 3.14159
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+anchors_preset = -1
+anchor_left = 0.852
+anchor_right = 1.0
+anchor_bottom = 0.147
+offset_left = -0.504089
+offset_bottom = -0.255997
+grow_horizontal = 0
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+text = "Wave:"
+
+[node name="AutoLabel" type="Label" parent="HBoxContainer" node_paths=PackedStringArray("_target")]
+layout_mode = 2
+script = ExtResource("8_rprlp")
+_target = NodePath("../../WaveManager")
+_property_path = &"_wave_index"
+metadata/_custom_type_script = "uid://ml6hcw4flrxa"
+metadata/_edit_use_anchors_ = true
