@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://c1wbi2kt7221i"]
+[gd_scene load_steps=23 format=3 uid="uid://c1wbi2kt7221i"]
 
 [ext_resource type="Script" uid="uid://ffgbnmgbp6br" path="res://src/entities/player_vehicle_2d/player_vehicle_2d.gd" id="1_o8gf6"]
 [ext_resource type="PackedScene" uid="uid://dt0q1pb42hs6f" path="res://src/components/velocity/velocity.tscn" id="2_cs8f6"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://l01uxojveimi" path="res://src/components/death/death.tscn" id="4_yn0u7"]
 [ext_resource type="PackedScene" uid="uid://bxg7f5l5rkhp0" path="res://src/entities/player_vehicle_2d/player_death_2d.tscn" id="5_j4sp8"]
 [ext_resource type="PackedScene" uid="uid://c2nw265h7x8ew" path="res://src/components/hitbox/hitbox.tscn" id="7_yn0u7"]
+[ext_resource type="PackedScene" uid="uid://c3f2obtblapa8" path="res://src/weapons/melee/melee.tscn" id="9_3orvr"]
 
 [sub_resource type="Animation" id="Animation_dwlbi"]
 length = 0.001
@@ -85,8 +86,8 @@ _boost_modifier = 17.48
 metadata/_edit_group_ = true
 
 [node name="Velocity" parent="." instance=ExtResource("2_cs8f6")]
-max_speed = 280
-acceleration = 9.545
+_max_speed = 300
+_acceleration = 10.0
 
 [node name="Health" parent="." node_paths=PackedStringArray("hitbox") instance=ExtResource("3_3h6ip")]
 hitbox = NodePath("../Hitbox")
@@ -127,6 +128,9 @@ modulate = Color(0.806572, 0.265107, 0.295352, 1)
 position = Vector2(30, 8)
 _bullet_spawner = NodePath("../BulletSpawner")
 
+[node name="PrimaryMelee" parent="." instance=ExtResource("9_3orvr")]
+position = Vector2(25, 0)
+
 [node name="Gun2" parent="." instance=ExtResource("3_b7s65")]
 modulate = Color(0.975482, 0.690805, 0.274644, 1)
 position = Vector2(30, -8)
@@ -136,6 +140,7 @@ scale = Vector2(24, 8)
 position = Vector2(32, 0)
 
 [node name="Hitbox" parent="." instance=ExtResource("7_yn0u7")]
+collision_mask = 128
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 position = Vector2(-2.5, 0)
@@ -162,11 +167,11 @@ layout_mode = 2
 [node name="AmmoHBox" type="HBoxContainer" parent="CanvasLayer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="AmmoCountLabel" type="Label" parent="CanvasLayer/MarginContainer/VBoxContainer/AmmoHBox"]
+[node name="PrimaryAmmoCountLabel" type="Label" parent="CanvasLayer/MarginContainer/VBoxContainer/AmmoHBox"]
 layout_mode = 2
-text = "Ammo:"
+text = "Primary ammo:"
 
-[node name="AmmoCount" type="Label" parent="CanvasLayer/MarginContainer/VBoxContainer/AmmoHBox"]
+[node name="PrimaryAmmoCount" type="Label" parent="CanvasLayer/MarginContainer/VBoxContainer/AmmoHBox"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "100"

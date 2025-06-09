@@ -12,7 +12,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gx72n"]
 size = Vector2(137, 1538)
 
-[node name="Level" type="Node"]
+[node name="Level" type="Node2D"]
 script = ExtResource("1_ijpmm")
 
 [node name="WaveManager" parent="." node_paths=PackedStringArray("_spawners") instance=ExtResource("2_rprlp")]
@@ -130,12 +130,12 @@ rotation = 3.14159
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 anchors_preset = -1
-anchor_left = 0.852
-anchor_right = 1.0
-anchor_bottom = 0.147
-offset_left = -0.504089
-offset_bottom = -0.255997
+offset_left = 1008.0
+offset_top = 36.0
+offset_right = 1060.0
+offset_bottom = 59.0
 grow_horizontal = 0
+metadata/_edit_use_anchors_ = true
 
 [node name="Label" type="Label" parent="HBoxContainer"]
 layout_mode = 2

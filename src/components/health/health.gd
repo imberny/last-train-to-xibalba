@@ -13,6 +13,10 @@ func _ready() -> void:
 	hitbox.hurt.connect(_on_hitbox_hurt)
 
 
+func heal(amount: int) -> void:
+	_hitpoints += amount
+
+
 func _take_damage(damage: int) -> void:
 	_hitpoints -= damage
 

@@ -27,6 +27,7 @@ _speed = 350.0
 texture = SubResource("GradientTexture2D_ydx35")
 
 [node name="Hurtbox" parent="." instance=ExtResource("2_ydx35")]
+collision_layer = 128
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 shape = SubResource("CircleShape2D_hwxcd")

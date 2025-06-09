@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://cemwymdyw3kue"]
+
+[ext_resource type="PackedScene" uid="uid://dt0q1pb42hs6f" path="res://src/components/velocity/velocity.tscn" id="1_6yhpq"]
+[ext_resource type="PackedScene" uid="uid://d1gqsdw8lt5b8" path="res://src/components/square_2d/square_2d.tscn" id="1_pm6y3"]
+[ext_resource type="Script" uid="uid://dhsjd3nur8ywr" path="res://src/pickups/repair_pickup/repair_pickup.gd" id="1_wohrc"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wohrc"]
+radius = 20.3961
+
+[node name="RepairPickup" type="Node2D"]
+script = ExtResource("1_wohrc")
+
+[node name="Velocity" parent="." instance=ExtResource("1_6yhpq")]
+_max_speed = 240
+_initial_speed = 600.0
+_initial_spread_degrees = 45.0
+
+[node name="Square2D" parent="." instance=ExtResource("1_pm6y3")]
+modulate = Color(0.477458, 0.779491, 0.351295, 1)
+scale = Vector2(16, 16)
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_wohrc")

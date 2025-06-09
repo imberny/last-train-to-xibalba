@@ -1,7 +1,9 @@
 class_name Velocity extends Node
 
-@export var max_speed := 40
-@export var acceleration := 5.0
+@export var _max_speed := 40
+@export var _acceleration := 5.0
+@export var _initial_speed := 0.0
+@export var _initial_spread_degrees := 0.0
 
 var x: float:
 	get:
@@ -13,9 +15,14 @@ var y: float:
 var _velocity: Vector2
 
 
+func _ready() -> void:
+	var spread := deg_to_rad(_initial_spread_degrees)
+	_velocity = _initial_speed * Vector2.RIGHT.rotated(randf_range(-spread, spread))
+
+
 func accelerate_in_direction(motion: Vector2, delta: float) -> void:
-	var desired_velocity := motion * max_speed
-	_velocity = _velocity.lerp(desired_velocity, 1.0 - exp(-acceleration * delta))
+	var desired_velocity := motion * _max_speed
+	_velocity = _velocity.lerp(desired_velocity, 1.0 - exp(-_acceleration * delta))
 
 
 func move(node: Node2D, delta: float) -> void:

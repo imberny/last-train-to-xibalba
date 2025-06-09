@@ -5,6 +5,10 @@ class_name TitleScreen extends Control
 var level_container: LevelContainer
 
 
+func _ready() -> void:
+	$CenterContainerButtons/VBoxContainer/DebugSceneButton.grab_focus()
+
+
 func _load_level(level_scene: PackedScene) -> void:
 	level_container.change_level(level_scene)
 	queue_free()

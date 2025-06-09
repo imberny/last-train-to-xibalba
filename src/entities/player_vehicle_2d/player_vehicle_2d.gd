@@ -3,17 +3,23 @@ class_name PlayerVehicle2D extends Node2D
 @export var _boost_modifier := 12.0
 
 @onready var _velocity: Velocity = $Velocity
+@onready var _health: Health = $Health
 @onready var _boost_timer: Timer = $BoostTimer
 @onready var _primary_gun: Gun = $PrimaryGun
+@onready var _primary_melee: Melee = $PrimaryMelee
 @onready var _anim_tree: AnimationTree = $AnimationTree
 @onready var _playback: AnimationNodeStateMachinePlayback = _anim_tree["parameters/playback"]
 
 var _is_flipped := false
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	%HealthCount.text = str($Health._hitpoints)
-	var target_rotation: float = _velocity.y * deg_to_rad(15.0) / _velocity.max_speed
+	%PrimaryAmmoCount.text = str(_primary_gun.ammo)
+
+
+func _physics_process(delta: float) -> void:
+	var target_rotation: float = _velocity.y * deg_to_rad(15.0) / _velocity._max_speed
 	if _is_flipped:
 		target_rotation += PI
 	rotation = lerpf(rotation, target_rotation, delta * 15.0)
@@ -50,3 +56,15 @@ func primary_pull_trigger() -> void:
 
 func primary_release_trigger() -> void:
 	_primary_gun.release_trigger()
+
+
+func primary_swing() -> void:
+	_primary_melee.swing()
+
+
+func gain_repair(amount: int) -> void:
+	_health.heal(amount)
+
+
+func gain_ammo(count: int) -> void:
+	_primary_gun.gain_ammo(count)

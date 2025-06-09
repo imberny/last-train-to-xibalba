@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://do0atkm1ht53f"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fyndt"]
+albedo_color = Color(0.714919, 0.597074, 0.999321, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_kmhfv"]
+material = SubResource("StandardMaterial3D_fyndt")
+size = Vector3(0.2, 0.2, 0.2)
+
+[node name="Player3D" type="MeshInstance3D"]
+mesh = SubResource("BoxMesh_kmhfv")
+skeleton = NodePath("../../..")

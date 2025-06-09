@@ -1,7 +1,5 @@
 extends Node
 
-@export var _player_3d_node: Node3D
-
 var _pairs_2d_to_3d: Dictionary[Node2D, Node3D]
 
 
@@ -18,9 +16,17 @@ func _process(_delta: float) -> void:
 		)
 
 
+func _instantiate(path: StringName) -> Node:
+	var node: Node = load(path).instantiate()
+	add_child(node)
+	return node
+
+
 func _on_tree_node_added(node: Node) -> void:
 	if node is PlayerVehicle2D:
-		_pairs_2d_to_3d[node as Node2D] = _player_3d_node
+		_pairs_2d_to_3d[node as Node2D] = _instantiate(
+			&"res://src/visuals/player_3d/player_3d.tscn"
+		)
 
 
 func _on_tree_node_removed(node: Node) -> void:

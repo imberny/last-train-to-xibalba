@@ -1,4 +1,4 @@
-class_name Level extends Node
+class_name Level extends Node2D
 
 signal back_to_main_menu
 signal completed

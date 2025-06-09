@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://6l2kblvk0bri"]
+[gd_scene load_steps=10 format=3 uid="uid://6l2kblvk0bri"]
 
 [ext_resource type="Script" uid="uid://dnx45qu5pkwhs" path="res://src/main.gd" id="1_eewff"]
 [ext_resource type="PackedScene" uid="uid://drw43yoago2g" path="res://src/menus/splash_screen/splash_screen.tscn" id="2_gh0ne"]
@@ -7,13 +7,6 @@
 [ext_resource type="Script" uid="uid://cfkjwe4sxsmy8" path="res://src/level_3d_manager.gd" id="5_fyndt"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_3cfgd"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fyndt"]
-albedo_color = Color(0.714919, 0.597074, 0.999321, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_kmhfv"]
-material = SubResource("StandardMaterial3D_fyndt")
-size = Vector3(0.2, 0.2, 0.2)
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_fyndt"]
 
@@ -28,11 +21,6 @@ sky = SubResource("Sky_kmhfv")
 script = ExtResource("1_eewff")
 _splash_scene = ExtResource("2_gh0ne")
 _title_scene = ExtResource("3_3cfgd")
-
-[node name="LevelContainer" type="Node2D" parent="."]
-script = ExtResource("3_5q4o7")
-
-[node name="LogManager" type="Node" parent="."]
 
 [node name="Viewport3DContainer" type="SubViewportContainer" parent="."]
 visible = false
@@ -49,21 +37,23 @@ size = Vector2i(1152, 648)
 render_target_update_mode = 0
 
 [node name="Camera3D" type="Camera3D" parent="Viewport3DContainer/SubViewport"]
-transform = Transform3D(1, 0, 0, 0, 0.956996, 0.290101, 0, -0.290101, 0.956996, 0, 1.01235, 2.51319)
+transform = Transform3D(1, 0, 0, 0, 0.832747, 0.553653, 0, -0.553653, 0.832747, 0, 2.058, 4)
 projection = 1
 current = true
+size = 1.6
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Viewport3DContainer/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
 mesh = SubResource("PlaneMesh_3cfgd")
 skeleton = NodePath("../../../LevelContainer")
 
-[node name="Player3D" type="MeshInstance3D" parent="Viewport3DContainer/SubViewport"]
-mesh = SubResource("BoxMesh_kmhfv")
-skeleton = NodePath("../../..")
-
-[node name="Level3DManager" type="Node" parent="Viewport3DContainer/SubViewport" node_paths=PackedStringArray("_player_3d_node")]
+[node name="Level3DManager" type="Node" parent="Viewport3DContainer/SubViewport"]
 script = ExtResource("5_fyndt")
-_player_3d_node = NodePath("../Player3D")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Viewport3DContainer/SubViewport"]
 environment = SubResource("Environment_rlaii")
+
+[node name="LevelContainer" type="Node2D" parent="."]
+script = ExtResource("3_5q4o7")
+
+[node name="LogManager" type="Node" parent="."]

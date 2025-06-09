@@ -8,18 +8,22 @@ enum Kind { SINGLE, AUTO, CHARGE }
 @export var _rate_of_fire := 0.1
 @export var _spread_degrees := 5.0
 @export var _trauma_intensity := 0.1
+@export var _ammo_max := 100
 
-@onready var _anim_tree: AnimationTree = $AnimationTree
-@onready var _playback: AnimationNodeStateMachinePlayback = _anim_tree["parameters/playback"]
-@onready var _cooldown_timer: Timer = $CooldownTimer
+var ammo: int
 
 var _shoot_tween: Tween
 var _is_shooting := false
 var _has_shot := false
 
+@onready var _anim_tree: AnimationTree = $AnimationTree
+@onready var _playback: AnimationNodeStateMachinePlayback = _anim_tree["parameters/playback"]
+@onready var _cooldown_timer: Timer = $CooldownTimer
+
 
 func _ready() -> void:
 	_cooldown_timer.wait_time = _rate_of_fire
+	ammo = _ammo_max
 
 
 func pull_trigger() -> void:
@@ -47,6 +51,10 @@ func release_trigger() -> void:
 	_has_shot = false
 
 
+func gain_ammo(count: int) -> void:
+	ammo = clampi(ammo + count, 0, _ammo_max)
+
+
 func _shoot_auto() -> void:
 	if not _cooldown_timer.is_stopped():
 		await _cooldown_timer.timeout
@@ -62,6 +70,11 @@ func _shoot_auto() -> void:
 
 
 func _shoot() -> void:
+	if 0 == ammo:
+		# play empty sound
+		return
+	ammo -= 1
+
 	_has_shot = true
 	var bullet: Node2D = _bullet_scene.instantiate()
 	GameService.level.add_child(bullet)

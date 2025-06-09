@@ -29,7 +29,7 @@ func start_next_wave() -> void:
 		for _i in num_instances:
 			var enemy: Node2D = enemy_definition.scene.instantiate()
 			enemy.global_transform = _spawners.pick_random().global_transform
-			add_child(enemy)
+			GameService.level.add_child(enemy)
 			_enemy_count += 1
 			enemy.tree_exited.connect(_on_enemy_tree_exited)
 
