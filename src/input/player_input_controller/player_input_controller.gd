@@ -8,9 +8,7 @@ func _physics_process(delta: float) -> void:
 
 	var motion := _get_motion_adjusted()
 	if Input.is_action_just_pressed("boost"):
-		player.boost(motion.normalized(), delta)
-	else:
-		player.move(motion, delta)
+		player.boost(motion.normalized())
 	if Input.is_action_just_pressed("shoot_primary"):
 		player.primary_pull_trigger()
 	elif Input.is_action_just_released("shoot_primary"):
@@ -24,6 +22,8 @@ func _physics_process(delta: float) -> void:
 
 	if Input.is_action_just_pressed("flip_around"):
 		player.flip_around()
+
+	player.move(motion, delta)
 
 
 func _get_motion_adjusted() -> Vector2:

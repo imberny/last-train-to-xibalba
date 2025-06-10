@@ -1,7 +1,7 @@
 class_name PlayerVehicle2D extends Node2D
 
 @export var definition: PlayerVehicleDefinition
-@export var _boost_modifier := 12.0
+@export var _boost_speed := 600.0
 
 @onready var _velocity: Velocity = $Velocity
 @onready var _health: Health = $Health
@@ -37,14 +37,14 @@ func can_boost() -> bool:
 	return _boost_timer.is_stopped()
 
 
-func boost(direction: Vector2, delta: float) -> void:
+func boost(direction: Vector2) -> void:
 	if not can_boost():
 		return
 
 	_boost_timer.start()
 	_playback.travel("boost")
 	var actual_direction := direction if not direction.is_zero_approx() else transform.x
-	move(actual_direction * _boost_modifier, delta)
+	_velocity.add_impulse(actual_direction * _boost_speed)
 
 
 func flip_around() -> void:
@@ -111,6 +111,7 @@ func secondary_release_trigger() -> void:
 
 func melee_swing() -> void:
 	_melee.swing()
+	_velocity.add_impulse(global_transform.x * _melee.swing_boost_speed)
 
 
 func gain_repair(amount: int) -> void:

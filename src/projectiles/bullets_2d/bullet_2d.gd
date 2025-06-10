@@ -17,7 +17,9 @@ func _physics_process(delta: float) -> void:
 
 
 func _reverse(direction: Vector2) -> void:
-	if direction.angle_to(transform.x) < PI / 2.0:
+	var angle := direction.angle_to(transform.x)
+	angle = wrapf(angle, -PI, PI)
+	if abs(angle) < PI / 2.0:
 		return
 
 	_times_reversed += 1

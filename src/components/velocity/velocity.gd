@@ -20,6 +20,10 @@ func _ready() -> void:
 	_velocity = _initial_speed * Vector2.RIGHT.rotated(randf_range(-spread, spread))
 
 
+func add_impulse(force: Vector2) -> void:
+	_velocity += force
+
+
 func accelerate_in_direction(motion: Vector2, delta: float) -> void:
 	var desired_velocity := motion * _max_speed
 	_velocity = _velocity.lerp(desired_velocity, 1.0 - exp(-_acceleration * delta))
