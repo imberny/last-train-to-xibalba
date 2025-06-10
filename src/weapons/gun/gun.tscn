@@ -98,6 +98,7 @@ _trauma_intensity = 2.11
 one_shot = true
 
 [node name="Sprite" parent="." instance=ExtResource("3_0j1yv")]
+modulate = Color(0.837926, 0.514824, 0.299616, 1)
 scale = Vector2(24, 8)
 
 [node name="AudioStreamPlayer2DPool" parent="." instance=ExtResource("4_qeilf")]

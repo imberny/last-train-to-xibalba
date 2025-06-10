@@ -11,7 +11,7 @@ func _ready() -> void:
 func _spawn_drop() -> void:
 	var drop: Node2D = _drops.pick_random().scene.instantiate()
 	drop.global_transform = owner.global_transform
-	GameService.level.add_child(drop)
+	GameService.spawn(drop)
 
 
 func _on_health_died() -> void:

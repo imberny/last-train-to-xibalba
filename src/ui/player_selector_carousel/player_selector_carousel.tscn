@@ -1,0 +1,58 @@
+[gd_scene load_steps=2 format=3 uid="uid://copbmo66q0n2j"]
+
+[ext_resource type="Script" uid="uid://dnnbjm1vlpvde" path="res://src/ui/player_selector_carousel/player_selector_carousel.gd" id="1_b5oe5"]
+
+[node name="PlayerSelectorCarousel" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_b5oe5")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -84.0
+offset_top = -36.0
+offset_right = 84.0
+offset_bottom = 36.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="LeftButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "<"
+
+[node name="ColorRect" type="ColorRect" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+color = Color(0.486444, 0.741911, 0.881471, 1)
+
+[node name="RightButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = ">"
+
+[node name="SelectButton" type="Button" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Select"

@@ -103,7 +103,7 @@ func _shoot() -> void:
 	dir = dir.rotated(randf_range(-spread, spread))
 	var bullet: Node2D = _bullet_scene.instantiate()
 	bullet.global_transform = global_transform
-	GameService.get_level().add_child(bullet)
+	GameService.spawn(bullet)
 	bullet.look_at(bullet.global_position + dir)
 
 

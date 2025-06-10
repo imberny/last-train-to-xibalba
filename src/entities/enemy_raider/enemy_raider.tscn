@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://b5lsuh120g6h7"]
+[gd_scene load_steps=14 format=3 uid="uid://b5lsuh120g6h7"]
 
 [ext_resource type="Script" uid="uid://cwbs3u6jt7xdy" path="res://src/entities/enemy_raider/enemy_raider.gd" id="1_10e8t"]
 [ext_resource type="PackedScene" uid="uid://d1gqsdw8lt5b8" path="res://src/components/square_2d/square_2d.tscn" id="1_ofbph"]
@@ -10,18 +10,8 @@
 [ext_resource type="PackedScene" uid="uid://1y1k4d17hcxl" path="res://src/projectiles/bullets_2d/enemy_bullet_2d.tscn" id="6_htgso"]
 [ext_resource type="Script" uid="uid://dw2nyi4fuw5p4" path="res://src/components/drop/drop.gd" id="7_4rmh7"]
 [ext_resource type="Script" uid="uid://b8ci4brd3tijk" path="res://src/resources/drop_definition.gd" id="8_yc75c"]
-[ext_resource type="PackedScene" uid="uid://caqnj1bi7tdh3" path="res://src/pickups/ammo_pickup/ammo_pickup.tscn" id="9_y1r22"]
-[ext_resource type="PackedScene" uid="uid://cemwymdyw3kue" path="res://src/pickups/repair_pickup/repair_pickup.tscn" id="10_y1r22"]
-
-[sub_resource type="Resource" id="Resource_7a78u"]
-script = ExtResource("8_yc75c")
-scene = ExtResource("9_y1r22")
-metadata/_custom_type_script = "uid://b8ci4brd3tijk"
-
-[sub_resource type="Resource" id="Resource_6ya4b"]
-script = ExtResource("8_yc75c")
-scene = ExtResource("10_y1r22")
-metadata/_custom_type_script = "uid://b8ci4brd3tijk"
+[ext_resource type="Resource" uid="uid://virprs4dw4rg" path="res://src/resources/drops/ammo_drop.tres" id="9_y1r22"]
+[ext_resource type="Resource" uid="uid://bi86pxack0th8" path="res://src/resources/drops/repair_drop.tres" id="10_7a78u"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_10e8t"]
 
@@ -40,7 +30,7 @@ _death_scene = ExtResource("4_02my5")
 [node name="Drop" parent="." node_paths=PackedStringArray("_health") instance=ExtResource("6_3m7am")]
 script = ExtResource("7_4rmh7")
 _health = NodePath("../Health")
-_drops = Array[ExtResource("8_yc75c")]([SubResource("Resource_7a78u"), SubResource("Resource_6ya4b")])
+_drops = Array[ExtResource("8_yc75c")]([ExtResource("9_y1r22"), ExtResource("10_7a78u")])
 
 [node name="ShootTimer" type="Timer" parent="."]
 wait_time = 0.1

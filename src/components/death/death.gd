@@ -12,7 +12,7 @@ func die() -> void:
 	var parent: Node2D = get_parent()
 	parent.queue_free()
 	var death: Node2D = _death_scene.instantiate()
-	GameService.level.add_child(death)
+	GameService.spawn(death)
 	death.global_transform = parent.global_transform
 
 

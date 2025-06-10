@@ -3,13 +3,14 @@ class_name Gun extends Node2D
 enum Kind { SINGLE, AUTO, CHARGE }
 
 @export var _bullet_scene: PackedScene
-@export var _bullet_spawner: Node2D
 @export var _kind: Kind
 @export var _rate_of_fire := 0.1
 @export var _spread_degrees := 5.0
+@export var _num_projectiles_per_shot := 1
 @export var _trauma_intensity := 0.1
 @export var _ammo_max := 100
 
+var bullet_spawner: Node2D
 var ammo: int
 
 var _shoot_tween: Tween
@@ -76,12 +77,17 @@ func _shoot() -> void:
 	ammo -= 1
 
 	_has_shot = true
-	var bullet: Node2D = _bullet_scene.instantiate()
-	GameService.level.add_child(bullet)
-	bullet.global_transform = _bullet_spawner.global_transform
-	bullet.rotate(deg_to_rad(randf_range(-_spread_degrees, _spread_degrees)))
-	_playback.travel("shoot")
-	EventBus.emit_trauma(_trauma_intensity)
+
+	var height := 70.0
+	var v_pos := height / (_num_projectiles_per_shot + 1)
+	for i in _num_projectiles_per_shot:
+		var bullet: Node2D = _bullet_scene.instantiate()
+		GameService.spawn(bullet)
+		bullet.global_transform = bullet_spawner.global_transform
+		bullet.global_position.y += (height / 2.0) - (i + 1) * v_pos
+		bullet.rotate(deg_to_rad(randf_range(-_spread_degrees, _spread_degrees)))
+		_playback.travel("shoot")
+		EventBus.emit_trauma(_trauma_intensity)
 
 
 func _start_charge() -> void:

@@ -1,6 +1,5 @@
-[gd_scene load_steps=10 format=3 uid="uid://cckmqmn6mbhtl"]
+[gd_scene load_steps=12 format=3 uid="uid://cckmqmn6mbhtl"]
 
-[ext_resource type="PackedScene" uid="uid://c1wbi2kt7221i" path="res://src/entities/player_vehicle_2d/player_vehicle_2d.tscn" id="1_h7xki"]
 [ext_resource type="PackedScene" uid="uid://02n7xapox2w5" path="res://src/input/player_input_controller/player_input_controller.tscn" id="1_hs2m2"]
 [ext_resource type="Script" uid="uid://lygoeib4pkc3" path="res://src/levels/level.gd" id="1_ijpmm"]
 [ext_resource type="PackedScene" uid="uid://cso6cttn5l4m0" path="res://src/managers/wave_manager/wave_manager.tscn" id="2_rprlp"]
@@ -8,6 +7,9 @@
 [ext_resource type="PackedScene" uid="uid://484piapv22pv" path="res://src/camera/game_camera_2d/game_camera_2d.tscn" id="3_gx72n"]
 [ext_resource type="PackedScene" uid="uid://d1gqsdw8lt5b8" path="res://src/components/square_2d/square_2d.tscn" id="6_mjrdq"]
 [ext_resource type="Script" uid="uid://ml6hcw4flrxa" path="res://src/ui/auto_label.gd" id="8_rprlp"]
+[ext_resource type="PackedScene" uid="uid://copbmo66q0n2j" path="res://src/ui/player_selector_carousel/player_selector_carousel.tscn" id="9_4cgw3"]
+[ext_resource type="Script" uid="uid://26c6py3k6l0" path="res://src/resources/player_vehicle_definition.gd" id="10_sqdx5"]
+[ext_resource type="Resource" uid="uid://6jr2o0rli3os" path="res://src/resources/player_vehicles/motorcycle.tres" id="11_q2owm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gx72n"]
 size = Vector2(137, 1538)
@@ -21,8 +23,8 @@ _spawners = [NodePath("../EnemySpawner1"), NodePath("../EnemySpawner2"), NodePat
 
 [node name="PlayerInputController" parent="." instance=ExtResource("1_hs2m2")]
 
-[node name="Player" parent="." instance=ExtResource("1_h7xki")]
-position = Vector2(214, 312)
+[node name="PlayerSpawn" type="Marker2D" parent="."]
+position = Vector2(528, 206)
 
 [node name="GameCamera2D" parent="." instance=ExtResource("3_gx72n")]
 position = Vector2(575, 327)
@@ -128,8 +130,7 @@ rotation = 3.14159
 position = Vector2(1022, 715)
 rotation = 3.14159
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
-anchors_preset = -1
+[node name="WaveLabel" type="HBoxContainer" parent="."]
 offset_left = 1008.0
 offset_top = 36.0
 offset_right = 1060.0
@@ -137,14 +138,19 @@ offset_bottom = 59.0
 grow_horizontal = 0
 metadata/_edit_use_anchors_ = true
 
-[node name="Label" type="Label" parent="HBoxContainer"]
+[node name="Label" type="Label" parent="WaveLabel"]
 layout_mode = 2
 text = "Wave:"
 
-[node name="AutoLabel" type="Label" parent="HBoxContainer" node_paths=PackedStringArray("_target")]
+[node name="AutoLabel" type="Label" parent="WaveLabel" node_paths=PackedStringArray("_target")]
 layout_mode = 2
 script = ExtResource("8_rprlp")
 _target = NodePath("../../WaveManager")
 _property_path = &"_wave_index"
 metadata/_custom_type_script = "uid://ml6hcw4flrxa"
 metadata/_edit_use_anchors_ = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="PlayerSelectorCarousel" parent="CanvasLayer" instance=ExtResource("9_4cgw3")]
+_player_vehicle_definitions = Array[ExtResource("10_sqdx5")]([ExtResource("11_q2owm")])

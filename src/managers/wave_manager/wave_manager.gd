@@ -24,12 +24,13 @@ func start_next_wave() -> void:
 
 	for enemy_definition in candidates:
 		enemy_definition = enemy_definition as EnemyDefinition
+		@warning_ignore("integer_division")
 		var num_instances: int = 1 + (8 - enemy_definition.difficulty) + _wave_index / 3
 		num_instances = max(num_instances, 1)
 		for _i in num_instances:
 			var enemy: Node2D = enemy_definition.scene.instantiate()
 			enemy.global_transform = _spawners.pick_random().global_transform
-			GameService.level.add_child(enemy)
+			GameService.spawn(enemy)
 			_enemy_count += 1
 			enemy.tree_exited.connect(_on_enemy_tree_exited)
 

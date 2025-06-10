@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="DropDefinition" load_steps=3 format=3 uid="uid://virprs4dw4rg"]
+
+[ext_resource type="PackedScene" uid="uid://caqnj1bi7tdh3" path="res://src/pickups/ammo_pickup/ammo_pickup.tscn" id="1_gmq4o"]
+[ext_resource type="Script" uid="uid://b8ci4brd3tijk" path="res://src/resources/drop_definition.gd" id="2_ukbdh"]
+
+[resource]
+script = ExtResource("2_ukbdh")
+scene = ExtResource("1_gmq4o")
+metadata/_custom_type_script = "uid://b8ci4brd3tijk"

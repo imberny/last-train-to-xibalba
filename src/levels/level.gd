@@ -4,10 +4,10 @@ signal back_to_main_menu
 signal completed
 
 @onready var _wave_manager: WaveManager = $WaveManager
+@onready var _player_spawn_point: Node2D = $PlayerSpawn
 
 
 func _ready() -> void:
-	GameService.level = self
 	_wave_manager.finished.connect(_on_wave_manager_finished)
 
 
@@ -22,6 +22,10 @@ func exit() -> void:
 
 func quit_to_main_menu() -> void:
 	back_to_main_menu.emit()
+
+
+func get_player_spawn_point() -> Node2D:
+	return _player_spawn_point
 
 
 func _on_wave_manager_finished() -> void:

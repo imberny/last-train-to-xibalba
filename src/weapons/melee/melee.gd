@@ -16,6 +16,6 @@ func swing() -> void:
 
 func _on_area_entered(area: Area2D) -> void:
 	if area is Hurtbox:
-		area.hit_back((owner as Node2D).transform.x)
+		area.hit_back(global_transform.x)
 	elif area is Hitbox:
-		area.hurt.emit(10)
+		area.hit(_damage)

@@ -15,8 +15,12 @@ func _physics_process(delta: float) -> void:
 		player.primary_pull_trigger()
 	elif Input.is_action_just_released("shoot_primary"):
 		player.primary_release_trigger()
-	elif Input.is_action_just_pressed("melee_primary"):
-		player.primary_swing()
+	if Input.is_action_just_pressed("shoot_secondary"):
+		player.secondary_pull_trigger()
+	elif Input.is_action_just_released("shoot_secondary"):
+		player.secondary_release_trigger()
+	if Input.is_action_just_pressed("melee_primary"):
+		player.melee_swing()
 
 	if Input.is_action_just_pressed("flip_around"):
 		player.flip_around()
